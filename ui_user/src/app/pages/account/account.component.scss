@@ -1,0 +1,11 @@
+.nav {
+  .nav-item {
+    a {
+      color: #009efb;
+      &.active {
+        background-color: #009efb;
+        color: white;
+      }
+    }
+  }
+}

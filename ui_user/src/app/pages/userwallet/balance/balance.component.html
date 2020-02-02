@@ -1,0 +1,66 @@
+<div class="row page-titles">
+    <div class="col-md-5 col-8 align-self-center">
+        <h4 class="text-themecolor m-b-0 m-t-0"><b>{{'LABEL.BALANCE' | translate}}</b>
+        </h4>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="filters">
+                    <i class="fa fa-search"></i>
+                    <input type="text" name="search" placeholder="{{'LABEL.Search' | translate}}" [(ngModel)]="filtertxt" (ngModelChange)="onFilter()">
+
+                    <div class="float-right">
+                        <span class="font-weight-bold">{{total_btc | number:'1.8-8'}} BTC / {{(total_btc * btc_tl) | number:'1.8-8'}} TL</span>
+                    </div>
+                </div>
+
+                <div class="table-resonsive">
+                    <loader *ngIf="loading"></loader>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>{{'LABEL.COIN' | translate}}</th>
+                            <th>{{'LABEL.FULL_NAME' | translate}}</th>
+                            <th class="text-right" (click)="onSortTable('total_amount')">{{'LABEL.TOTAL_BALANCE' | translate}}
+                                <i class="fa" [ngClass]="{'fa-caret-up': sortColumn == 'total_amount' && sortOrder == 'asc', 'fa-caret-down': sortColumn == 'total_amount' && sortOrder == 'desc'}"></i>
+                            </th>
+                            <th class="text-right" (click)="onSortTable('order_amount')">{{'LABEL.IN_ORDER' | translate}}
+                                <i class="fa" [ngClass]="{'fa-caret-up': sortColumn == 'order_amount' && sortOrder == 'asc', 'fa-caret-down': sortColumn == 'order_amount' && sortOrder == 'desc'}"></i>
+                            </th>
+                            <th class="text-right" (click)="onSortTable('available_amount')">{{'LABEL.AVAILABLE_BALANCE' | translate}}
+                                <i class="fa" [ngClass]="{'fa-caret-up': sortColumn == 'available_amount' && sortOrder == 'asc', 'fa-caret-down': sortColumn == 'available_amount' && sortOrder == 'desc'}"></i>
+                            </th>
+                            <th class="text-right" (click)="onSortTable('btc_value')">{{'LABEL.BTC_VALUE' | translate}}
+                                <i class="fa" [ngClass]="{'fa-caret-up': sortColumn == 'btc_value' && sortOrder == 'asc', 'fa-caret-down': sortColumn == 'btc_value' && sortOrder == 'desc'}"></i>
+                            </th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let coin of coins">
+                            <td><img src="assets/images/coin/{{coin.coin}}.png" style="height: 20px;"> {{coin.coin}}</td>
+                            <td>{{coin.fullname}}</td>
+                            <td class="text-right">{{coin.total_amount | number:'1.8-8'}}</td>
+                            <td class="text-right">{{coin.order_amount | number:'1.8-8'}}</td>
+                            <td class="text-right">{{coin.available_amount | number:'1.8-8'}}</td>
+                            <td class="text-right">{{(coin.available_amount * coin.btc_price) | number:'1.8-8'}}</td>
+                            <td class="text-center">
+                                <button type="button" class="btn btn-info" (click)="onClickDeposit(coin.coin)">
+                                    <i class="mdi mdi-view-dashboard"></i>Deposit
+                                </button>
+                                <button type="button" class="btn btn-success btn-round" (click)="onClickWithdraw(coin.coin)">
+                                    <i class="mdi mdi-view-dashboard"></i>Withdraw
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

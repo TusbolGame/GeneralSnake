@@ -1,0 +1,227 @@
+<div class="page-wrapper text-white">
+    <div class="top-image">
+        <img src="assets/images/ico/mpay-top-image.png">
+    </div>
+    <div class="face-image">
+        <img src="assets/images/ico/mpay-face.png">
+    </div>
+    <div class="bottom-image">
+        <img src="assets/images/ico/bottom-image.png">
+    </div>
+    <div class="balance">
+        <div class="title">Your Balance</div>
+        <div class="item clearfix">
+            <span class="float-left">MPAY :</span>
+            <span class="float-right">{{settings.getBalance('MPAY') | number:'1.8-8'}}</span>
+        </div>
+        <div class="item clearfix">
+            <span class="float-left">BTC :</span>
+            <span class="float-right cursor-pointer" (click)="onClickBalance('BTC')">{{settings.getBalance('BTC') | number:'1.8-8'}}</span>
+        </div>
+        <div class="item clearfix">
+            <span class="float-left">ETH :</span>
+            <span class="float-right cursor-pointer" (click)="onClickBalance('ETH')">{{settings.getBalance('ETH') | number:'1.8-8'}}</span>
+        </div>
+        <div class="item clearfix">
+            <span class="float-left">TL :</span>
+            <span class="float-right cursor-pointer" (click)="onClickBalance('TL')">{{settings.getBalance('TL') | number:'1.8-8'}}</span>
+        </div>
+    </div>
+
+    <div class="content ico-content">
+        <div class="top">
+            <div class="container text-center">
+                <div class="top-logo">
+                    <img src="assets/images/ico/MPAY.png" style="width: 150px; margin-right: 50px;">
+                    <img src="assets/images/ico/STK-LOGO.png" style="width: 200px;">
+                </div>
+
+                <h1 class="top-title mt-5 mb-3 text-white">MIDDLE EAST’S MOST ANTICIPATED IEO</h1>
+                <h2 class="top-content mt-2 text-white">MenaPay will be conducting an Initial Exchange Offering with Sistemkoin, starting on the 15th of March! Don't miss out early investment bonus of 20%.</h2>
+            </div>
+        </div>
+
+        <div class="progress-container">
+            <div class="container">
+                <div class="row">
+                    <div class="col-6 text-right p-0">
+                        <div>Total Contributions:</div>
+                        <div>{{icoSetting.ico_amount | number:'1.0-0'}}</div>
+                    </div>
+                    <div class="col-6 text-right">
+                        <div>Total Tokens Reserved For IEO:</div>
+                        <div>{{icoSetting.total_cap | number:'1.0-0'}}</div>
+                    </div>
+                </div>
+                <div class="progress-bar-contener mt-2">
+                    <div class="progress-inner"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="token-phase">
+            <div class="container">
+                <div class="content text-center">
+                    <div class="">Token Sale Ends In:</div>
+
+                    <div class="clearfix">
+                        <div class="d-inline-block">
+                            <div class="number">{{remain.day | number:'2.0-0'}}</div>
+                            <div class="type">days</div>
+                        </div>
+                        <div class="d-inline-block align-top">
+                            <div class="seporator">:</div>
+                        </div>
+                        <div class="d-inline-block">
+                            <div class="number">{{remain.hour | number:'2.0-0'}}</div>
+                            <div class="type">hours</div>
+                        </div>
+                        <div class="d-inline-block align-top">
+                            <div class="seporator">:</div>
+                        </div>
+                        <div class="d-inline-block">
+                            <div class="number">{{remain.min | number:'2.0-0'}}</div>
+                            <div class="type">min</div>
+                        </div>
+                        <div class="d-inline-block align-top">
+                            <div class="seporator">:</div>
+                        </div>
+                        <div class="d-inline-block">
+                            <div class="number">{{remain.sec | number:'2.0-0'}}</div>
+                            <div class="type">sec</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="buy-with">
+            <div class="container">
+                <div class="content text-center">
+                    <div class="title text-uppercase d-inline-block">buy with</div>
+
+                    <div class="">
+                        <div class="row btn-wrapper mt-4">
+                            <div class="col-sm-4 mb-3">
+                                <button class="btn-block" (click)="onClickBuyMenu('BTC')">BTC</button>
+                            </div>
+                            <div class="col-sm-4 mb-3">
+                                <button class="btn-block" (click)="onClickBuyMenu('ETH')">ETH</button>
+                            </div>
+                            <div class="col-sm-4 mb-3">
+                                <button class="btn-block" (click)="onClickBuyMenu('TL')">TL</button>
+                            </div>
+                        </div>
+
+                        <div class="form-wrapper" id="btcCollaps" *ngIf="selBuyCoin != ''">
+                            <form>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-4 text-right">
+                                            <label>MPAY/{{selBuyCoin}} Price: </label>
+                                        </div>
+                                        <div class="col-8 text-right">
+                                            <label>{{sel_price | number:'1.8-8'}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-4 text-right">
+                                            <label>MPAY Amount: </label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input class="form-control text-right" [(ngModel)]="mpayAmount" name="mpay_amount">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-4 text-right">
+                                            <label>{{selBuyCoin}} Amount: </label>
+                                        </div>
+                                        <div class="col-8 text-right">
+                                            <label>{{(mpayAmount * sel_price) | number:'1.8-8'}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-right row">
+                                    <div class="offset-sm-9 col-sm-3">
+                                        <button class="btn-block" (click)="onBuyMPAY()">BUY MPAY</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>
+    <div class="paid text-center">
+        <!--<div class="title">Currently Sold Tokens: {{icoSetting.ico_amount | number:'1.0-0'}}</div>-->
+        <div class="inner mt-3">
+            <div class="container">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-sm-3 text-right position-relative first mb-1">
+                            <div class="text-title">
+                                <div class="currency-img"><img src="assets/images/ico/mpay-currency.png" style="width: 50px;">
+                                </div>
+                                <div class="text-title" style="margin-left: 50px;">
+                                    Currently Sold Tokens
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 text-left mb-1">
+                            <div>BTC</div>
+                            <div>{{icoSetting.btc_amount | number:'1.8-8'}}</div>
+                        </div>
+                        <div class="col-sm-3 text-left mb-1">
+                            <div>ETH</div>
+                            <div>{{icoSetting.eth_amount | number:'1.8-8'}}</div>
+                        </div>
+                        <div class="col-sm-3 text-left mb-1">
+                            <div>TL</div>
+                            <div>{{icoSetting.tl_amount | number:'1.8-8'}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fuck text-center">
+        <div class="container">
+            <!--<div class="title d-inline-block">Sistemkoin Bonus Structure</div>-->
+            <div class="content mt-3">
+                <div class="row">
+                    <div class="col-sm-3 text-right position-relative first mb-1">
+                        <div class="bonus-img"><img src="assets/images/ico/mpay-bonus.png" style="width: 50px;">
+                        </div>
+                        <div class="text-title" style="margin-left: 50px;">
+                            MenaPay Bonus Structure
+                        </div>
+                    </div>
+                    <div class="col-sm-3 mb-2 text-left">
+                        <div class="item-wrapper">
+                            <div class="sub-title">Min Investment: {{icoSetting.min_amount}} MPAY</div>
+                            <div class="item">20% Bonus</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 mb-2 text-left">
+                        <div class="item-wrapper">
+                            <div class="sub-title">Min Investment: {{icoSetting.min_amount}} MPAY</div>
+                            <div class="item">20% Bonus</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 mb-2 text-left">
+                        <div class="item-wrapper">
+                            <div class="sub-title">Min Investment: {{icoSetting.min_amount}} MPAY</div>
+                            <div class="item">20% Bonus</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

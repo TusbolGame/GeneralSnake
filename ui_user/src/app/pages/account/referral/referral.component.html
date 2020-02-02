@@ -1,0 +1,143 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <form class="form-horizontal form-material">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-2 text-center">
+                                    <img class="qrCode"
+                                         src="https://chart.googleapis.com/chart?chs=200x200&chld=L|2&cht=qr&choe=UTF-8&chl={{qrcode_url}}"/>
+                                </div>
+                                <div class="col-md-10" style="padding-top: 10px;">
+                                    <div class="form-group row">
+                                        <label class="col-md-3">{{'REFERRAL.REFERRAL_ID' | translate}}</label>
+                                        <label class="col-md-8">{{settings.getUserSetting('ref_code')}}</label>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-3">{{'REFERRAL.REFERRAL_URL' | translate}}</label>
+                                        <div class="col-md-8 ref-url">
+                                            <input type="email" class="form-control form-control-line" readonly
+                                                   value="{{referral_url}}" name="referral_url" id="referral_url">
+                                            <button type="button" class="btn btn-info" (click)="copyAddress()"><i
+                                                    class="fa fa-copy"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-3">{{'REFERRAL.REFERRAL_FRIENDS' | translate}}</label>
+                                        <label class="col-md-8 text-warning"><b>{{friends.length}}</b></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">{{'REFERRAL.ESTIMATED_COMMISSION_VALUE' | translate}}</h4>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th *ngFor="let coin of coins">{{coin.coin}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td *ngFor="let coin of coins">{{commissions[coin.coin] | number:'1.8-8'}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card height-500">
+            <div class="card-body">
+                <h4 class="card-title">{{'REFERRAL.REFERRAL_FRIENDS' | translate}}</h4>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>{{'LABEL.EMAIL' | translate}}</th>
+                            <th>{{'LABEL.TIME' | translate}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let friend of friends">
+                            <td>{{friend.email}}</td>
+                            <td>{{friend.created_at | date:'yyyy-MM-dd'}}</td>
+                        </tr>
+                        <tr *ngIf="friends?.length == 0">
+                            <td class="text-center" colspan="2">
+                                {{'REFERRAL.NO_FRIENDS' | translate}}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card height-500">
+            <div class="card-body">
+                <h4 class="card-title">{{'REFERRAL.LATEST_COMMISSION_HISTORY' | translate}}</h4>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>{{'LABEL.COIN' | translate}}</th>
+                            <th>{{'LABEL.COMMISSION' | translate}}</th>
+                            <th>{{'LABEL.EMAIL' | translate}}</th>
+                            <th>{{'LABEL.TIME' | translate}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let data of history">
+                            <td>{{data.coin}}</td>
+                            <td>{{data.dest_amount | number:'1.8-8'}}</td>
+                            <td>{{data.email}}</td>
+                            <td>{{data.datetime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                        </tr>
+                        <tr *ngIf="history?.length == 0">
+                            <td class="text-center" colspan="4">
+                                {{'REFERRAL.NO_COMMISSION' | translate}}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">{{'REFERRAL.PROGRAM_DETAILS' | translate}}</h4>
+                <p>{{'REFERRAL.DETAIL1' | translate}}</p>
+                <p>{{'REFERRAL.DETAIL2' | translate}}</p>
+                <p>{{'REFERRAL.DETAIL3' | translate}}</p>
+                <p>{{'REFERRAL.DETAIL4' | translate}}</p>
+                <p>{{'REFERRAL.DETAIL5' | translate}}</p>
+                <p>{{'REFERRAL.DETAIL6' | translate}}</p>
+                <p>{{'REFERRAL.DETAIL7' | translate}}</p>
+            </div>
+        </div>
+    </div>
+</div>

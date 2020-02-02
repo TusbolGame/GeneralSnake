@@ -1,0 +1,35 @@
+.topbar {
+    position: fixed;
+    top: 0px;
+    width: 100%;
+}
+
+.navbar-header {
+    left: 15px !important;
+    right: initial !important;
+    height: 70px;
+    img {
+        height: 50px;
+    }
+}
+.lang {
+    font-size: 15px;
+}
+
+.mega-dropdown {
+    width: initial;
+    ul li {
+        font-size: 12px !important;
+    }
+}
+.currency-value {
+    float: right;
+}
+
+.scale-up-left div {
+    line-height: 2.5rem;
+}
+
+li a {
+    cursor: pointer;
+}

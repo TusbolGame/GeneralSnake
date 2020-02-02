@@ -1,0 +1,248 @@
+<div class="page-wrapper text-white">
+    <div id="particles-js"></div>
+    <div class="logo">
+        <a [routerLink]="['/market']"><img src="assets/images/logo.png"></a>
+    </div>
+    <div class="balance">
+        <div class="title">Your Balance</div>
+        <div class="item clearfix">
+            <span class="float-left">FTC :</span>
+            <span class="float-right">{{settings.getBalance('FTC') | number:'1.8-8'}}</span>
+        </div>
+        <div class="item clearfix">
+            <span class="float-left">BTC :</span>
+            <span class="float-right cursor-pointer" (click)="onClickBalance('BTC')">{{settings.getBalance('BTC') | number:'1.8-8'}}</span>
+        </div>
+        <div class="item clearfix">
+            <span class="float-left">ETH :</span>
+            <span class="float-right cursor-pointer" (click)="onClickBalance('ETH')">{{settings.getBalance('ETH') | number:'1.8-8'}}</span>
+        </div>
+        <div class="item clearfix">
+            <span class="float-left">XRP :</span>
+            <span class="float-right cursor-pointer" (click)="onClickBalance('XRP')">{{settings.getBalance('XRP') | number:'1.8-8'}}</span>
+        </div>
+    </div>
+
+    <div class="content ico-content">
+        <div class="top">
+            <div class="container text-center">
+                <div class="top-logo">
+                    <img src="assets/images/coin/FTC.png">
+                </div>
+
+                <h1 class="top-title mb-3 text-white">Fuck Trump Coin</h1>
+                <h2 class="top-content text-white">The first Block Chain based political movement against an oppressive,
+                    self-interested, and tyrannical world leader.</h2>
+            </div>
+        </div>
+
+        <div class="progress-container">
+            <div class="container">
+                <div class="row">
+                    <div class="col-6 text-right p-0">
+                        <div>Total Contributions:</div>
+                        <div>{{icoSetting.ico_amount | number:'1.0-0'}}</div>
+                    </div>
+                    <div class="col-6 text-right">
+                        <div>Hard Cap:</div>
+                        <div>{{icoSetting.total_cap | number:'1.0-0'}}</div>
+                    </div>
+                </div>
+                <div class="progress-bar-contener mt-2">
+                    <div class="progress-inner"></div>
+                </div>
+
+                <div class="phase" *ngIf="curPhase == 2">
+                    <div>Phase #1 Contributions: {{icoSetting.phase1_cap | number:'1.0-0'}}</div>
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="phase2">Phase #2 Contributions: {{((icoSetting.ico_amount - icoSetting.phase1_cap) < 0 ? 0 : (icoSetting.ico_amount - icoSetting.phase1_cap)) | number:'1.0-0'}}</div>
+                        </div>
+                        <!--<div class="col-sm-2 text-right">-->
+                            <!--<span>2 345 txns</span>-->
+                        <!--</div>-->
+                        <!--<div class="col-sm-2 text-right">-->
+                            <!--<span>See Details</span>-->
+                        <!--</div>-->
+                    </div>
+                </div>
+
+                <div class="phase" *ngIf="curPhase == 1">
+                    <div class="phase2">Phase #1 Contributions: {{icoSetting.ico_amount | number:'1.0-0'}}</div>
+                    <div >Phase #2 Contributions: 0</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="token-phase">
+            <div class="container">
+                <div class="content text-center">
+                    <div class="">Token Sale Phase #{{curPhase}} Ends In:</div>
+
+                    <div class="clearfix">
+                        <div class="d-inline-block">
+                            <div class="number">{{remain.day | number:'2.0-0'}}</div>
+                            <div class="type">days</div>
+                        </div>
+                        <div class="d-inline-block align-top">
+                            <div class="seporator">:</div>
+                        </div>
+                        <div class="d-inline-block">
+                            <div class="number">{{remain.hour | number:'2.0-0'}}</div>
+                            <div class="type">hours</div>
+                        </div>
+                        <div class="d-inline-block align-top">
+                            <div class="seporator">:</div>
+                        </div>
+                        <div class="d-inline-block">
+                            <div class="number">{{remain.min | number:'2.0-0'}}</div>
+                            <div class="type">min</div>
+                        </div>
+                        <div class="d-inline-block align-top">
+                            <div class="seporator">:</div>
+                        </div>
+                        <div class="d-inline-block">
+                            <div class="number">{{remain.sec | number:'2.0-0'}}</div>
+                            <div class="type">sec</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="buy-with">
+            <div class="container">
+                <div class="content text-center">
+                    <div class="title text-uppercase d-inline-block">buy with</div>
+
+                    <div class="">
+                        <div class="row btn-wrapper mt-4">
+                            <div class="col-sm-4 mb-3">
+                                <button class="btn-block" (click)="onClickBuyMenu('BTC')">BTC</button>
+                            </div>
+                            <div class="col-sm-4 mb-3">
+                                <button class="btn-block" (click)="onClickBuyMenu('ETH')">ETH</button>
+                            </div>
+                            <div class="col-sm-4 mb-3">
+                                <button class="btn-block" (click)="onClickBuyMenu('XRP')">XRP</button>
+                            </div>
+                        </div>
+
+                        <div class="form-wrapper" id="btcCollaps" *ngIf="selBuyCoin != ''">
+                            <form>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-4 text-right">
+                                            <label>FTC/{{selBuyCoin}} Price: </label>
+                                        </div>
+                                        <div class="col-8 text-right">
+                                            <label>{{sel_price | number:'1.8-8'}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-4 text-right">
+                                            <label>{{selBuyCoin}} Amount: </label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input class="form-control text-right" [(ngModel)]="coinAmount" name="coin_amount">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-4 text-right">
+                                            <label>FTC Amount: </label>
+                                        </div>
+                                        <div class="col-8 text-right">
+                                            <label>{{(coinAmount / sel_price) | number:'1.8-8'}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-right row">
+                                    <div class="offset-sm-9 col-sm-3">
+                                        <button class="btn-block" (click)="onBuyFTC()">BUY FTC</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="paid text-center">
+            <div class="title">Currently Sold Tokens: {{icoSetting.ico_amount | number:'1.0-0'}}</div>
+            <div class="inner mt-3">
+                <div class="container">
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-sm-3 text-right position-relative first mb-1">
+                                <div>PAID</div>
+                            </div>
+                            <div class="col-sm-3 text-left mb-1">
+                                <div>BTC</div>
+                                <div>{{icoSetting.btc_amount | number:'1.8-8'}}</div>
+                            </div>
+                            <div class="col-sm-3 text-left mb-1">
+                                <div>ETH</div>
+                                <div>{{icoSetting.eth_amount | number:'1.8-8'}}</div>
+                            </div>
+                            <div class="col-sm-3 text-left mb-1">
+                                <div>XRP</div>
+                                <div>{{icoSetting.xrp_amount | number:'1.8-8'}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="fuck text-center">
+            <div class="container">
+                <div class="title d-inline-block">Fuck Trump Coin Bonus Structure</div>
+                <div class="content mt-3">
+                    <div class="row">
+                        <div class="col-sm-4 mb-2">
+                            <div class="item-wrapper">
+                                <div class="sub-title">Min Investment: 0.01 BTC</div>
+                                <div class="item">0.10 BTC + 20% Bonus</div>
+                                <div class="item">0.50 BTC + 30% Bonus</div>
+                                <div class="item">0.75 BTC + 40% Bonus</div>
+                                <div class="item">1.00 BTC + 60% Bonus</div>
+                                <div class="item">1.50 BTC + 80% Bonus</div>
+                                <div class="sub-title">Min Investment: 0.01 BTC</div>
+                                <div class="item">5.00 BTC+ 200% Bonus</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 mb-2">
+                            <div class="item-wrapper">
+                                <div class="sub-title">Min Investment: 0.01 ETH</div>
+                                <div class="item">0.10 ETH + 20% Bonus</div>
+                                <div class="item">0.50 ETH + 30% Bonus</div>
+                                <div class="item">0.75 ETH + 40% Bonus</div>
+                                <div class="item">1.00 ETH + 60% Bonus</div>
+                                <div class="item">1.50 ETH + 80% Bonus</div>
+                                <div class="sub-title">Min Investment: 0.01 ETH</div>
+                                <div class="item">5.00 ETH + 200% Bonus</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 mb-2">
+                            <div class="item-wrapper">
+                                <div class="sub-title">Min Investment: 0.01 XRP</div>
+                                <div class="item">0.10 XRP + 20% Bonus</div>
+                                <div class="item">0.50 XRP + 30% Bonus</div>
+                                <div class="item">0.75 XRP + 40% Bonus</div>
+                                <div class="item">1.00 XRP + 60% Bonus</div>
+                                <div class="item">1.50 XRP + 80% Bonus</div>
+                                <div class="sub-title">Min Investment: 0.01 XRP</div>
+                                <div class="item">5.00 XRP + 200% Bonus</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

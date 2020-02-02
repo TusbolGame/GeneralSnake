@@ -1,0 +1,98 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <form class="form-horizontal form-material">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert alert-success" *ngIf="profile.verify_status == 3">{{'MSG.PROFILE_VERIFIED' | translate}}</div>
+                            <div class="alert alert-danger" *ngIf="profile.verify_status == 2">{{'MSG.PROFILE_CANCELED' | translate}}</div>
+                            <div class="alert alert-info" *ngIf="profile.verify_status == 1">{{'MSG.PROFILE_PENDING' | translate}}</div>
+                            <div class="alert alert-danger" *ngIf="profile.verify_status == 0">{{'MSG.PROFILE_UNVERIFIED' | translate}}</div>
+                            <div class="alert alert-danger" *ngIf="profile.verify_status == 2">{{profile.note}}</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12">{{'LABEL.EMAIL' | translate}}</label>
+                        <div class="col-md-12">
+                            <input type="email" class="form-control form-control-line" readonly
+                                   value="{{settings.getUserSetting('email')}}" name="example-email" id="example-email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12">{{'LABEL.NAME' | translate}}</label>
+                        <div class="col-md-12">
+                            <input type="text" name="name" [(ngModel)]="profile.firstname" readonly
+                                   class="form-control form-control-line">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12">{{'LABEL.SURNAME' | translate}}</label>
+                        <div class="col-md-12">
+                            <input type="text" name="surname" [(ngModel)]="profile.surname" readonly
+                                   class="form-control form-control-line">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12">{{'LABEL.PHONE_NUMBER' | translate}}</label>
+                        <div class="col-md-12">
+                            <input type="text" name="phone_number" [(ngModel)]="profile.phone_number" [readonly]="profile.verify_status == 1 || profile.verify_status == 3"
+                                   class="form-control form-control-line">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12">{{'LABEL.ADDRESS' | translate}}</label>
+                        <div class="col-md-12">
+                            <input type="text" name="address" [(ngModel)]="profile.address" [readonly]="profile.verify_status == 1 || profile.verify_status == 3"
+                                   class="form-control form-control-line">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12">{{'LABEL.VERIFY_TYPE' | translate}}</label>
+                        <div class="col-md-12">
+                            <select class="form-control custom-select" name="verify_type" [disabled]="profile.verify_status == 1 || profile.verify_status == 3"
+                                    [(ngModel)]="profile.verify_type">
+                                <!--<option value="0">{{'LABEL.NONE' | translate}}</option>-->
+                                <option value="1">{{'LABEL.ID_CARD' | translate}}</option>
+                                <option value="2">{{'LABEL.PASSPORT' | translate}}</option>
+                                <option value="3">{{'LABEL.DRIVING_LICENSE' | translate}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="profile.verify_type > 0">
+                        <label class="col-md-12">{{'LABEL.IDCARD_NUMBER' | translate}}</label>
+                        <div class="col-md-12">
+                            <input type="text" name="idcard_number" [(ngModel)]="profile.idcard_number" [readonly]="profile.verify_status == 1 || profile.verify_status == 3"
+                                   class="form-control form-control-line">
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="profile.verify_type > 0">
+                        <div class="col-md-12" *ngIf="profile.verify_status == 0 || profile.verify_status == 2">
+                            <button type="button" class="btn btn-primary" (click)="onChooseFile()">
+                                {{'BUTTON.CHOOSE_FILE' | translate}}
+                            </button>
+                        </div>
+                        <div class="col-md-12">
+                            <input type="file" id="inputFile" style="display: none;" name="file" class="form-control" (change)="fileChangeListener($event)">
+                            <div class="image-preview">
+                                <img src="{{profile.idcard_url}}" id="card-preview">
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="form-group">-->
+                    <!--<label class="col-md-12">Phone No</label>-->
+                    <!--<div class="col-md-12">-->
+                    <!--<input type="text" class="form-control form-control-line">-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <div class="form-group" *ngIf="profile.verify_status == 0 || profile.verify_status == 2">
+                        <div class="col-md-12">
+                            <button class="btn btn-success" (click)="saveProfile()">{{'BUTTON.UPDATE' | translate}}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

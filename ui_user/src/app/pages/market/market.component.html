@@ -1,0 +1,451 @@
+<div class="row page-titles">
+    <div class="col-sm-2 align-self-center">
+        <h4 class="text-themecolor m-b-0 m-t-0"><b>{{selCoin}}</b>
+            <small>/ {{selMarketCoin}}</small>
+        </h4>
+        <h5>{{selPair.fullname}}</h5>
+    </div>
+    <div class="col-sm-8 align-self-center">
+        <div class="d-flex m-t-10">
+            <div class="d-flex m-r-20 m-l-10 hidden-md-down">
+                <div class="chart-text m-r-20">
+                    <h6 class="m-b-0">
+                        <small>{{'LABEL.LAST_PRICE' | translate}}</small>
+                    </h6>
+                    <h5 class="m-t-0 text-megna font-size12">{{selPair.last_price | number:'1.'+selPair.places+'-'+selPair.places}}</h5>
+                </div>
+                <div class="chart-text m-r-20">
+                    <h6 class="m-b-0">
+                        <small>{{'LABEL.CHANGE_24S' | translate}}</small>
+                    </h6>
+                    <h5 class="m-t-0 font-size12" [ngClass]="{'text-danger': selPair.change < 0, 'text-megna': selPair.change > 0}">{{selPair.change | number:'1.2-2'}}%</h5>
+                </div>
+                <div class="chart-text m-r-20">
+                    <h6 class="m-b-0">
+                        <small>{{'LABEL.HIGHEST_PRICE_24S' | translate}}</small>
+                    </h6>
+                    <h5 class="m-t-0 text-inverse font-size12">{{selPair.high | number:'1.'+selPair.places+'-'+selPair.places}}</h5>
+                </div>
+                <div class="chart-text m-r-20">
+                    <h6 class="m-b-0">
+                        <small>{{'LABEL.LOWEST_PRICE_24S' | translate}}</small>
+                    </h6>
+                    <h5 class="m-t-0 text-inverse font-size12">{{selPair.low | number:'1.'+selPair.places+'-'+selPair.places}}</h5>
+                </div>
+                <div class="chart-text m-r-20">
+                    <h6 class="m-b-0">
+                        <small>{{'LABEL.VOLUME_24S' | translate}}</small>
+                    </h6>
+                    <h5 class="m-t-0 text-inverse font-size12">{{selPair.volume | number:'1.8-8'}}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<div class="col-sm-2 align-self-center">-->
+        <!--<div class="d-flex m-t-10 justify-content-end">-->
+            <!--<div class="d-flex m-r-20 m-l-10 hidden-md-down">-->
+                <!--<div class="chart-text m-r-20">-->
+                    <!--<h6 class="m-b-0">-->
+                        <!--<small>TL / USD</small>-->
+                    <!--</h6>-->
+                    <!--<h5 class="m-t-0 text-megna font-size12">{{settings.getUSDRate() | number:'1.2-2'}} <b><i class="fa fa-turkish-lira"></i></b></h5>-->
+                <!--</div>-->
+                <!--<div class="chart-text m-r-20">-->
+                    <!--<h6 class="m-b-0">-->
+                        <!--<small>TL / EURO</small>-->
+                    <!--</h6>-->
+                    <!--<h5 class="m-t-0 text-megna font-size12">{{settings.getEURRate() | number:'1.2-2'}} <b><i class="fa fa-turkish-lira"></i></b></h5>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+</div>
+
+<div class="row market">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="coin-pair">
+                            <div class="tabs">
+                                <ul>
+                                    <li class="text-center" [ngClass]="{'active': activeMarketCoin=='TL'}" (click)="onSelectMarketCoin('TL')">TL</li>
+                                    <li class="text-center" [ngClass]="{'active': activeMarketCoin=='BTC'}" (click)="onSelectMarketCoin('BTC')">BTC</li>
+                                    <li class="text-center" [ngClass]="{'active': activeMarketCoin=='USDT'}" (click)="onSelectMarketCoin('USDT')">USDT</li>
+                                    <li class="text-center" [ngClass]="{'active': activeMarketCoin=='ETH'}" (click)="onSelectMarketCoin('ETH')">ETH</li>
+                                    <li class="text-center" [ngClass]="{'active': activeMarketCoin=='USD'}" (click)="onSelectMarketCoin('USD')">USD</li>
+                                    <li class="text-center" [ngClass]="{'active': activeMarketCoin=='EURO'}" (click)="onSelectMarketCoin('EURO')">EURO</li>
+                                    <li class="text-center" [ngClass]="{'active': activeMarketCoin=='MISC'}" (click)="onSelectMarketCoin('MISC')">MISC</li>
+                                    <li class="text-center" [ngClass]="{'active': activeMarketCoin=='USC'}" (click)="onSelectMarketCoin('USC')">USC</li>
+                                </ul>
+                            </div>
+                            <div class="filters">
+                                <i class="fa fa-search"></i>
+                                <input type="text" name="search" placeholder="{{'LABEL.Search' | translate}}" [(ngModel)]="filtertxt" (ngModelChange)="onFilter()">
+
+                                <div class="float-right m-r-5">
+                                    <input type="radio" class="check font-size12" id="volume-radio" name="square-radio" [(ngModel)]="lastColumn" value="volume">
+                                    <label for="volume-radio" class="font-size12">{{'LABEL.VOLUME' | translate}}</label>
+                                </div>
+
+                                <div class="float-right">
+                                    <input type="radio" class="check font-size12" id="change-radio" name="square-radio" [(ngModel)]="lastColumn" value="change">
+                                    <label for="change-radio" class="font-size12">{{'LABEL.CHANGE' | translate}}</label>
+                                </div>
+                            </div>
+                            <div class="table-responsive pair-table">
+                                <table class="table ">
+                                    <thead>
+                                    <tr>
+                                        <th></th>
+
+                                        <th (click)="onSortTable('coin')">{{'LABEL.PAIR' | translate}}
+                                            <i class="fa" [ngClass]="{'fa-caret-up': sortInfo[activeMarketCoin].sortColumn == 'coin' && sortInfo[activeMarketCoin].sortOrder == 'asc', 'fa-caret-down': sortInfo[activeMarketCoin].sortColumn == 'coin' && sortInfo[activeMarketCoin].sortOrder == 'desc'}"></i>
+                                        </th>
+                                        <th (click)="onSortTable('last_price')">{{'LABEL.PRICE' | translate}}
+                                            <i class="fa" [ngClass]="{'fa-caret-up': sortInfo[activeMarketCoin].sortColumn == 'last_price' && sortInfo[activeMarketCoin].sortOrder == 'asc', 'fa-caret-down': sortInfo[activeMarketCoin].sortColumn == 'last_price' && sortInfo[activeMarketCoin].sortOrder == 'desc'}"></i>
+                                        </th>
+                                        <th (click)="onSortTable('change')" class="text-right" *ngIf="lastColumn == 'change'">{{'LABEL.CHANGE' | translate}}
+                                            <i class="fa" [ngClass]="{'fa-caret-up': sortInfo[activeMarketCoin].sortColumn == 'change' && sortInfo[activeMarketCoin].sortOrder == 'asc', 'fa-caret-down': sortInfo[activeMarketCoin].sortColumn == 'change' && sortInfo[activeMarketCoin].sortOrder == 'desc'}"></i>
+                                        </th>
+                                        <th (click)="onSortTable('volume')" class="text-right" *ngIf="lastColumn == 'volume'">{{'LABEL.VOLUME' | translate}}
+                                            <i class="fa" [ngClass]="{'fa-caret-up': sortInfo[activeMarketCoin].sortColumn == 'volume' && sortInfo[activeMarketCoin].sortOrder == 'asc', 'fa-caret-down': sortInfo[activeMarketCoin].sortColumn == 'volume' && sortInfo[activeMarketCoin].sortOrder == 'desc'}"></i>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr *ngFor="let pair of pairs" [ngClass]="{'active': pair.coin == selCoin && pair.market_coin == selMarketCoin}" (click)="onClickPair(pair)">
+                                        <td class="text-center"><i class="fa fa-star"></i></td>
+                                        <td>{{pair.coin}}/{{pair.market_coin}}</td>
+                                        <td>{{pair.last_price | number:'1.'+pair.places+'-'+pair.places}}</td>
+                                        <td class="text-right" [ngClass]="{'text-megna': pair.change > 0, 'text-danger': pair.change < 0}" *ngIf="lastColumn == 'change'">{{pair.change | number:'1.2-2'}}%</td>
+                                        <td class="text-right" *ngIf="lastColumn == 'volume'">
+                                            {{pair.market_coin == 'BTC' || pair.market_coin == 'ETH' || pair.market_coin == 'XRP' ? ((pair.volume * pair.last_price) | number:'1.4-4') : ((pair.volume * pair.last_price) | number:'1.0-0')}}
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="trade-history">
+                                <h3 class="font-weight-bold" style="margin-top: 19px;">{{'MARKET.TRADE_HISTORY' | translate}}</h3>
+                                <div class="table-responsive pair-table trade-table">
+                                    <table class="table ">
+                                        <tbody>
+                                        <tr *ngFor="let order of tradeHistory" (click)="setRate(order.rate)">
+                                            <td [ngClass]="{'text-megna': order.exchange_type == 0, 'text-danger': order.exchange_type == 1}">{{order.rate | number:'1.'+selPair.places+'-'+selPair.places}}</td>
+                                            <td>{{(order.exchange_type == 0 ? add(order.dest_amount, order.fee) : order.src_amount) | number:'1.8-8'}}</td>
+                                            <td class="text-right">{{order.datetime | date:'HH:mm:ss'}}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div id="marketchart" [chart]="stockChart" class="ct-chart"></div>
+                        <div class="row make-order">
+                            <div class="col-md-6">
+                                <div class="title">
+                                    <h3 class="float-left">{{selCoin}} {{'LABEL.BUY' | translate}}</h3>
+                                    <h5 class="float-right font-size12">{{selMarketCoin}} {{'LABEL.BALANCE' | translate}}: {{settings.getBalance(selMarketCoin) | number:'1.8-8'}}</h5>
+                                </div>
+                                <div class="clear"></div>
+                                <form class="form-material" id="buyform">
+                                    <div class="row">
+                                        <div class="col-md-4 text-left">
+                                            <label class="font-size12">{{'LABEL.RATE' | translate}}</label>
+                                        </div>
+                                        <div class="col-md-8 form-group">
+                                            <input type="number" step=0.01 class="form-control" name="buy_rate" min="0" required
+                                                   [(ngModel)]="buy.rate" (ngModelChange)="calcBuyTotal($event)">
+                                            <div class="font-size12 input-coin">{{selMarketCoin}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4 text-left">
+                                            <label class="font-size12">{{'LABEL.AMOUNT' | translate}}</label>
+                                        </div>
+                                        <div class="col-md-8 form-group">
+                                            <input type="number" step=0.00000001 class="form-control" name="buy_amount" min="0" required
+                                                   [(ngModel)]="buy.amount" (ngModelChange)="calcBuyTotal($event)">
+                                            <div class="font-size12 input-coin">{{selCoin}}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row m-b-10">
+                                        <div class="col-md-4"></div>
+                                        <div class="col-md-8">
+                                            <div class="percentage-button">
+                                                <button type="button" class="btn btn-info w-100" (click)="calcBuyPercent(0.25)">25%</button>
+                                            </div>
+                                            <div class="percentage-button">
+                                                <button type="button" class="btn btn-info w-100" (click)="calcBuyPercent(0.5)">50%</button>
+                                            </div>
+                                            <div class="percentage-button">
+                                                <button type="button" class="btn btn-info w-100" (click)="calcBuyPercent(0.75)">75%</button>
+                                            </div>
+                                            <div class="percentage-button">
+                                                <button type="button" class="btn btn-info w-100" (click)="calcBuyPercent(1)">100%</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-4 text-left">
+                                            <label class="font-size12">{{'LABEL.TOTAL' | translate}}</label>
+                                        </div>
+                                        <div class="col-md-8 form-group">
+                                            <input type="number" class="form-control" name="buy_total" [(ngModel)]="buy.total" (ngModelChange)="calcBuyRate($event)">
+                                            <div class="font-size12 input-coin">{{selMarketCoin}}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-5 text-left">
+                                            <label class="font-size12">{{'LABEL.FEE' | translate}} ({{selPair.buy_fee | number:'1.0-2'}}%)</label>
+                                        </div>
+                                        <div class="col-md-7 form-group">
+                                            <input type="text" class="form-control" name="buy_total" value="{{(buy.amount * selPair.buy_fee / 100) | number:'1.8-8'}}" readonly>
+                                            <div class="font-size12 input-coin">{{selCoin}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-5 text-left">
+                                            <label class="font-size12">{{'LABEL.AMOUNT' | translate}}-{{'LABEL.FEE' | translate}}</label>
+                                        </div>
+                                        <div class="col-md-7 form-group">
+                                            <input type="text" class="form-control" name="buy_total" value="{{(buy.amount * (100 - selPair.buy_fee) / 100) | number:'1.8-8'}}" readonly>
+                                            <div class="font-size12 input-coin">{{selCoin}}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-2 mb-2">
+                                        <button type="button" class="btn btn-success w-100 text-uppercase"
+                                                (click)="newBuyOrder()">{{selCoin}} {{'LABEL.BUY' | translate}}
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="title">
+                                    <h3 class="float-left">{{selCoin}} {{'LABEL.SELL' | translate}}</h3>
+                                    <h5 class="float-right font-size12">{{selCoin}} {{'LABEL.BALANCE' | translate}}: {{settings.getBalance(selCoin) | number:'1.8-8'}}</h5>
+                                </div>
+                                <div class="clear"></div>
+                                <form class="form-material" id="sellform">
+                                    <div class="row">
+                                        <div class="col-md-4 text-left">
+                                            <label class="font-size12">{{'LABEL.RATE' | translate}}</label>
+                                        </div>
+                                        <div class="col-md-8 form-group">
+                                            <input type="number" step=0.01 class="form-control" name="buy_rate" min="0" required
+                                                   [(ngModel)]="sell.rate" (ngModelChange)="calcSellTotal($event)">
+                                            <div class="font-size12 input-coin">{{selMarketCoin}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4 text-left">
+                                            <label class="font-size12">{{'LABEL.AMOUNT' | translate}}</label>
+                                        </div>
+                                        <div class="col-md-8 form-group">
+                                            <input type="number" step=0.00000001 class="form-control" name="buy_amount" min="0" required [(ngModel)]="sell.amount" (ngModelChange)="calcSellTotal($event)">
+                                            <div class="font-size12 input-coin">{{selCoin}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="row m-b-10">
+                                        <div class="col-md-4"></div>
+                                        <div class="col-md-8">
+                                            <div class="percentage-button">
+                                                <button type="button" class="btn btn-info w-100" (click)="calcSellPercent(0.25)">25%</button>
+                                            </div>
+                                            <div class="percentage-button">
+                                                <button type="button" class="btn btn-info w-100" (click)="calcSellPercent(0.5)">50%</button>
+                                            </div>
+                                            <div class="percentage-button">
+                                                <button type="button" class="btn btn-info w-100" (click)="calcSellPercent(0.75)">75%</button>
+                                            </div>
+                                            <div class="percentage-button">
+                                                <button type="button" class="btn btn-info w-100" (click)="calcSellPercent(1)">100%</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4 text-left">
+                                            <label class="font-size12">{{'LABEL.TOTAL' | translate}}</label>
+                                        </div>
+                                        <div class="col-md-8 form-group">
+                                            <input type="number" class="form-control" name="buy_total" [(ngModel)]="sell.total" (ngModelChange)="calcSellRate($event)">
+                                            <div class="font-size12 input-coin">{{selMarketCoin}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 text-left">
+                                            <label class="font-size12">{{'LABEL.FEE' | translate}} ({{selPair.sell_fee | number:'1.0-2'}}%)</label>
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <input type="text" class="form-control" name="buy_total" value="{{(sell.total * selPair.sell_fee / 100) | number:'1.8-8'}}" readonly>
+                                            <div class="font-size12 input-coin">{{selMarketCoin}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 text-left">
+                                            <label class="font-size12">{{'LABEL.TOTAL' | translate}}-{{'LABEL.FEE' | translate}}</label>
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <input type="text" class="form-control" name="buy_total" value="{{(sell.total * (100 - 1 * selPair.sell_fee) / 100) | number:'1.8-8'}}" readonly>
+                                            <div class="font-size12 input-coin">{{selMarketCoin}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2 mb-2">
+                                        <button type="button" class="btn btn-danger w-100 text-uppercase"
+                                                (click)="newSellOrder()">{{selCoin}} {{'LABEL.SELL' | translate}}
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="open-order">
+                            <h3 class="font-weight-bold text-danger">{{'MARKET.SELL_ORDER' | translate}}</h3>
+                            <div class="table-responsive sell-order-list pair-table">
+                                <table class="table ">
+                                    <thead>
+                                    <tr>
+                                        <th>{{'LABEL.RATE' | translate}}({{selMarketCoin}})</th>
+                                        <th class="text-right">{{'LABEL.AMOUNT' | translate}}({{selCoin}})</th>
+                                        <th class="text-right">{{'LABEL.TOTAL' | translate}}({{selMarketCoin}})</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr *ngFor="let order of sellOrders" (click)="setBuyRate(order.rate, order.amount)">
+                                        <td class="text-danger">{{order.rate | number:'1.'+selPair.places+'-'+selPair.places}}</td>
+                                        <td class="text-right">{{order.amount | number:'1.8-8'}}</td>
+                                        <td class="text-right">{{(order.rate * order.amount) | number:'1.'+selPair.places+'-'+selPair.places}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <h3 class="font-weight-bold text-megna" style="margin-top: 11px;">{{'MARKET.BUY_ORDER' | translate}}</h3>
+                            <div class="table-responsive buy-order-list pair-table">
+                                <table class="table ">
+                                    <tbody>
+                                    <tr *ngFor="let order of buyOrders" (click)="setSellRate(order.rate, order.amount)">
+                                        <td class="text-megna">{{order.rate | number:'1.'+selPair.places+'-'+selPair.places}}</td>
+                                        <td class="text-right">{{order.amount | number:'1.8-8'}}</td>
+                                        <td class="text-right">{{(order.rate * order.amount) | number:'1.'+selPair.places+'-'+selPair.places}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">{{'MARKET.ORDER_HISTORY' | translate}}</h4>
+                <ul class="nav nav-tabs customtab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#openorder" role="tab">
+                            <span>{{'MARKET.MY_OPEN_ORDERS' | translate}}</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#pastorder" role="tab">
+                            <span>{{'MARKET.PAST_ORDERS' | translate}}</span></a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="openorder" role="tabpanel">
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>{{'LABEL.PAIR' | translate}}</th>
+                                            <th>{{'LABEL.TYPE' | translate}}</th>
+                                            <th style="width: 200px;">{{'LABEL.TIME' | translate}}</th>
+                                            <th>{{'LABEL.AMOUNT' | translate}}</th>
+                                            <th>{{'LABEL.RATE' | translate}}</th>
+                                            <th>{{'LABEL.TOTAL_PRICE' | translate}}</th>
+                                            <th class="text-center">{{'LABEL.ACTION' | translate}}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr *ngFor="let order of pendingOrders">
+                                            <td>{{order.type == 0 ? order.dest_coin + '/' + order.src_coin : order.src_coin + '/' + order.dest_coin}}</td>
+                                            <td><label class="label label-sm" [ngClass]="{'label-success': order.type == 0, 'label-info': order.type == 1}">
+                                                {{(order.type == 0 ? 'LABEL.BUY' : 'LABEL.SELL') | translate}}</label>
+                                            </td>
+                                            <td style="width: 200px;">{{order.created_at | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                            <td>{{(order.type == 0 ? order.dest_amount : order.src_amount) | number:'1.8-8'}}</td>
+                                            <td>{{order.rate | number:'1.'+selPair.places+'-'+selPair.places}}</td>
+                                            <td>{{(order.type == 0 ? order.dest_amount * order.rate : order.src_amount * order.rate) | number:'1.'+selPair.places+'-'+selPair.places}}</td>
+                                            <td class="text-center">
+                                                <button type="button" class="btn btn-sm btn-danger" (click)="cancelOrder(order.id)">
+                                                    <i class="fa fa-close"></i> </button>
+                                            </td>
+                                        </tr>
+                                        <tr *ngIf="pendingOrders?.length == 0">
+                                            <td class="text-center" colspan="7">
+                                                {{'MARKET.NO_OPEN_ORDERS' | translate}}
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="pastorder" role="tabpanel">
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>{{'LABEL.PAIR' | translate}}</th>
+                                            <th>{{'LABEL.TYPE' | translate}}</th>
+                                            <th style="width: 200px;">{{'LABEL.TIME' | translate}}</th>
+                                            <th>{{'LABEL.AMOUNT' | translate}}</th>
+                                            <th>{{'LABEL.RATE' | translate}}</th>
+                                            <th>{{'LABEL.TOTAL_PRICE' | translate}}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr *ngFor="let order of pastOrders">
+                                            <td>{{order.exchange_type == 0 ? order.dest_coin + '/' + order.src_coin : order.src_coin + '/' + order.dest_coin}}</td>
+                                            <td><label class="label label-sm" [ngClass]="{'label-success': order.exchange_type == 0, 'label-info': order.exchange_type == 1}">
+                                                {{(order.exchange_type == 0 ? 'LABEL.BUY' : 'LABEL.SELL') | translate}}</label>
+                                            </td>
+                                            <td style="width: 200px;">{{order.created_at | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                            <td>{{(order.exchange_type == 0 ? order.dest_amount : order.src_amount) | number:'1.8-8'}}</td>
+                                            <td>{{order.rate | number:'1.'+selPair.places+'-'+selPair.places}}</td>
+                                            <td>{{(order.exchange_type == 0 ? order.src_amount : order.dest_amount) | number:'1.'+selPair.places+'-'+selPair.places}}</td>
+                                        </tr>
+                                        <tr *ngIf="pastOrders?.length == 0">
+                                            <td class="text-center" colspan="5">
+                                                {{'MARKET.NO_PAST_ORDERS' | translate}}
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

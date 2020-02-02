@@ -1,0 +1,67 @@
+<div class="login-register" style="background: #eef5f9;">
+    <div class="login-box card">
+        <div class="card-body">
+            <form class="form-horizontal form-material" id="signupform" [formGroup]="signup">
+                <h3 class="box-title m-b-20">Sign Up</h3>
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <input type="name" name="name" class="form-control" formControlName="name" [(ngModel)]="user.name" placeholder="Name...">
+                        <app-field-error-display [displayError]="validate.isFieldValid(signup, 'name')" errorMsg="Name is required">
+                        </app-field-error-display>
+                    </div>
+                </div>
+                <div class="form-group label-floating">
+                    <div class="col-xs-12">
+                        <input type="email" name="email" class="form-control" formControlName="email" [(ngModel)]="user.email" placeholder="Email...">
+                        <app-field-error-display [displayError]="validate.isFieldValid(signup, 'email')" errorMsg="Email is required and format should be john@doe.com.">
+                        </app-field-error-display>
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <div class="col-xs-12">
+                        <input type="password"
+                               name="password"
+                               class="form-control"
+                               formControlName="password"
+                               placeholder="Password..."
+                               [(ngModel)]="user.password">
+                        <app-field-error-display [displayError]="validate.isFieldValid(signup, 'password')" errorMsg="Password is required.">
+                        </app-field-error-display>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <input type="password"
+                                class="form-control"
+                                name="confirmPassword"
+                                formControlName="confirmPassword"
+                                placeholder="Confirm Password...">
+                        <app-field-error-display
+                                [displayError]="validate.isFieldValid(signup, 'confirmPassword')" errorMsg="These passwords don't match. Try again!">
+                        </app-field-error-display>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-12">
+                        <div class="checkbox checkbox-success p-t-0">
+                            <input id="checkbox-signup" type="checkbox" required=""
+                                   class="filled-in chk-col-light-blue" name="optionsCheckboxes" formControlName="agree" [(ngModel)]="user.agree">
+                            <label for="checkbox-signup"> I agree to all <a href="javascript:void(0)">Terms and
+                                conditions</a></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group text-center p-b-20">
+                    <div class="col-xs-12">
+                        <button class="btn btn-info btn-lg btn-block btn-rounded text-uppercase waves-effect waves-light" (click)="register()">Sign Up</button>
+                    </div>
+                </div>
+                <div class="form-group m-b-0">
+                    <div class="col-sm-12 text-center">
+                        Already have an account? <a class="text-info m-l-5" [routerLink]="['/login']"><b>Sign In</b></a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

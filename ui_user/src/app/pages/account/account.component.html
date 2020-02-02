@@ -1,0 +1,42 @@
+
+<div class="row page-titles">
+    <div class="col-md-5 col-8 align-self-center">
+        <h4 class="text-themecolor m-b-0 m-t-0">{{'SIDEBAR.ACCOUNT_SETTINGS' | translate}}</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <ul class="nav nav-pills">
+                    <li class=" nav-item  text-center">
+                        <a [routerLink]="['profile']" class="nav-link" routerLinkActive="active">
+                            <span><b><i class="ti-user"></i> {{'TITLE.PROFILE' | translate}}</b></span>
+                            <br>
+                        </a>
+                    </li>
+                    <li class=" nav-item text-center">
+                        <a [routerLink]="['bank']" class="nav-link" routerLinkActive="active">
+                            <span><b><i class="fa fa-bank"></i> {{'TITLE.BANK_ACCOUNT' | translate}}</b></span>
+                            <br>
+                        </a>
+                    </li>
+                    <li class=" nav-item  text-center">
+                        <a [routerLink]="['security']" class="nav-link" routerLinkActive="active">
+                            <span><b><i class="ti-settings"></i> {{'TITLE.SECURITY_SETTING' | translate}}</b></span>
+                            <br>
+                        </a>
+                    </li>
+                    <li class=" nav-item  text-center">
+                        <a [routerLink]="['referral']" class="nav-link" routerLinkActive="active">
+                            <span><b><i class="ti-settings"></i> {{'TITLE.REFERRAL' | translate}}</b></span>
+                            <br>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<router-outlet></router-outlet>

@@ -1,0 +1,141 @@
+<header class="topbar">
+    <nav class="navbar top-navbar navbar-expand-md navbar-light">
+
+        <div class="navbar-header">
+            <a class="navbar-brand" [routerLink]="['/market/btc']">
+                <img src="/assets/images/logo.png" alt="homepage" *ngIf="!isMobile()"/>
+                <img src="/assets/images/logo-icon.png" alt="homepage" *ngIf="isMobile()"/>
+            </a>
+        </div>
+
+        <div class="navbar-collapse">
+
+            <ul class="navbar-nav mr-auto mt-md-0">
+                <!-- ============================================================== -->
+                <li class="nav-item" id="mobile-show-menu"> <a class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="mdi mdi-menu"></i></a> </li>
+                <!-- End Messages -->
+                <!-- ============================================================== -->
+            </ul>
+            <!-- ============================================================== -->
+            <!-- User profile and search -->
+            <!-- ============================================================== -->
+            <ul class="navbar-nav my-lg-0">
+                <!-- ============================================================== -->
+                <!-- Profile -->
+                <!-- ============================================================== -->
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href=""
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{settings.getUserSetting('name')}}
+                        <i class="fa fa-caret-down"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right scale-up">
+                        <ul class="dropdown-user">
+                            <!--<li>-->
+                                <!--<a>-->
+                                    <!--<i class="fa fa-turkish-lira"></i>-->
+                                    <!--<span class="float-right">{{settings.getUserSetting('tl_balance') | number:'1.2-2'}}</span>-->
+                                <!--</a>-->
+                            <!--</li>-->
+                            <!--<li>-->
+                                <!--<a>-->
+                                    <!--<i class="cc cc-BTC-alt BTC"></i>-->
+                                    <!--<span class="float-right">{{settings.getUserSetting('btc_balance') | number:'1.8-8'}}</span>-->
+                                <!--</a>-->
+                            <!--</li>-->
+                            <!--<li>-->
+                                <!--<a>-->
+                                    <!--<i class="cc cc-LTC-alt LTC"></i>-->
+                                    <!--<span class="float-right">{{settings.getUserSetting('ltc_balance') | number:'1.8-8'}}</span>-->
+                                <!--</a>-->
+                            <!--</li>-->
+                            <!--<li>-->
+                                <!--<a>-->
+                                    <!--<i class="cc cc-DOGE-alt DOGE"></i>-->
+                                    <!--<span class="float-right">{{settings.getUserSetting('doge_balance') | number:'1.8-8'}}</span>-->
+                                <!--</a>-->
+                            <!--</li>-->
+                            <!--<li role="separator" class="divider"></li>-->
+                            <li><a [routerLink]="['/account/bank']"><i class="fa fa-bank"></i><span class="float-right">{{'HEADER.MY_BANK_ACCOUNTS' | translate}}</span> </a></li>
+                            <li><a [routerLink]="['/account/security']"><i class="ti-settings"></i><span class="float-right">{{'HEADER.SECURITY_SETTINGS' | translate}}</span> </a></li>
+                            <li><a (click)="onChangePwd()"><i class="fa fa-user-secret"></i><span class="float-right">{{'HEADER.CHANGE_PASSWORD' | translate}}</span> </a></li>
+                            <li><a [routerLink]="['/account/profile']"><i class="ti-user"></i><span class="float-right">{{'HEADER.MY_PROFILE' | translate}}</span> </a></li>
+                            <li role="separator" class="divider"></li>
+                            <li (click)="logout()"><a href="#"><i class="fa fa-power-off"></i><span class="float-right">{{'HEADER.LOGOUT' | translate}}</span></a></li>
+                        </ul>
+                    </div>
+                </li>
+                <!-- ============================================================== -->
+                <!-- Language -->
+                <!-- ============================================================== -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href=""
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="flag-icon {{currentLang.flagIcon}}"></i>
+                        <span class="lang">{{currentLang.shortName}}</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right scale-up">
+                        <a class="dropdown-item" *ngFor="let lang of translator.getLanguages()" (click)="setLang(lang.code)">
+                            <i class="flag-icon {{lang.flagIcon}}"></i>
+                            {{lang.text}}
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<modal-dialog [(visible)]="showPwdModal">
+    <form class="form-horizontal">
+        <div class="row">
+            <div class="col-md-12">
+                <form class="form-horizontal form-material" id="signupform" [formGroup]="changepwd">
+                    <h3 class="box-title m-b-5">{{'HEADER.CHANGE_PASSWORD' | translate}}</h3><div class="form-group ">
+                    <div class="col-xs-12">
+                        <input type="password"
+                               name="curPassword"
+                               class="form-control"
+                               formControlName="curPassword"
+                               placeholder="{{'HEADER.CURRENT_PASSWORD' | translate}}..."
+                               [(ngModel)]="pwd.curPassword">
+                        <app-field-error-display [displayError]="validate.isFieldValid(changepwd, 'curPassword')" errorMsg="{{'MSG.CURPWD_ERR' | translate}}">
+                        </app-field-error-display>
+                    </div>
+                </div>
+                    <div class="form-group ">
+                        <div class="col-xs-12">
+                            <input type="password"
+                                   name="password"
+                                   class="form-control"
+                                   formControlName="password"
+                                   placeholder="{{'HEADER.NEW_PASSWORD' | translate}}..."
+                                   [(ngModel)]="pwd.password">
+                            <app-field-error-display [displayError]="validate.isFieldValid(changepwd, 'password')" errorMsg="{{'MSG.REQUIRE_PWD_ERR' | translate}}">
+                            </app-field-error-display>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <input type="password"
+                                   class="form-control"
+                                   name="confirmPassword"
+                                   formControlName="confirmPassword"
+                                   placeholder="{{'HEADER.RETYPE_PASSWORD' | translate}}...">
+                            <app-field-error-display
+                                    [displayError]="validate.isFieldValid(changepwd, 'confirmPassword')" errorMsg="{{'MSG.NOTMATCH_PWD_ERR' | translate}}">
+                            </app-field-error-display>
+                        </div>
+                    </div>
+
+                    <div class="form-group text-center">
+                        <div class="col-xs-12">
+                            <button class="btn btn-info waves-effect waves-light" (click)="changePwd()">{{'BUTTON.CHANGE' | translate}}</button>
+                            <button class="btn btn-danger waves-effect waves-light" (click)="showPwdModal = false">{{'BUTTON.CLOSE' | translate}}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </form>
+</modal-dialog>

@@ -1,0 +1,184 @@
+
+<div class="row page-titles">
+    <div class="col-md-5 col-8 align-self-center">
+        <h4 class="text-themecolor m-b-0 m-t-0">{{'SIDEBAR.TICKET' | translate}}</h4>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">{{'TICKET.MY_TICKET' | translate}}</h4>
+                <div>
+                    <button type="button" class="btn btn-info" (click)="submitTicket()">
+                        {{'TICKET.SUBMIT_TICKET' | translate}}
+                    </button>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>{{'TICKET.TICKET_ID' | translate}}</th>
+                                    <th>{{'LABEL.STATUS' | translate}}</th>
+                                    <th>{{'LABEL.TITLE' | translate}}</th>
+                                    <th>{{'LABEL.LAST_USER' | translate}}</th>
+                                    <th style="width: 200px;">{{'LABEL.LAST_UPDATE' | translate}}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let ticket of tickets" [ngClass]="{'table-active': ticket.status == 2}"
+                                    (click)="showTicket(ticket)">
+                                    <td>{{ticket.id}}</td>
+                                    <td>
+                                        <!--<label class="label label-sm text-uppercase"-->
+                                        <!--[ngClass]="{'label-info': ticket.status==0, 'label-warning': ticket.status==1, 'label-success': ticket.status==2 }">-->
+                                        {{ (ticket.status == 0 ? 'LABEL.NEW' : (ticket.status == 1 ? 'LABEL.PENDING' :
+                                        'LABEL.CLOSED')) | translate }}
+                                        <!--</label>-->
+                                    </td>
+                                    <td>{{ticket.title}}</td>
+                                    <td>{{ticket.last_user}}</td>
+                                    <td style="width: 200px;">{{ticket.updated_at | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                </tr>
+                                <tr *ngIf="tickets?.length == 0">
+                                    <td class="text-center" colspan="5">
+                                        {{'TICKET.NO_TICKET_LIST' | translate}}
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" *ngIf="isNew">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <form>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label>{{'LABEL.TITLE' | translate}}</label>
+                            <textarea class="form-control" rows="3" id="ticket_title" name="title"
+                                      [(ngModel)]="ticket.title"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label>{{'LABEL.MESSAGE' | translate}}</label>
+                            <textarea class="form-control" rows="10" name="message"
+                                      [(ngModel)]="ticket.message"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label>{{'LABEL.ADD_ATTACH_FILE' | translate}}</label>
+                            <div class="controls">
+                                <input type="file" name="file" class="form-control"
+                                       (change)="fileChangeListener($event)">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-info" (click)="sendTicket()">
+                                {{'BUTTON.SEND' | translate}}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="details?.length > 0">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <pre>
+                        <h3 class="card-title">{{ticket.title}}</h3>
+                    </pre>
+                    <p>
+                        {{'LABEL.CREATED' | translate}}: {{ticket.created_at | date: 'dd MMMM yyyy HH:mm'}}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        {{'LABEL.UPDATED' | translate}}: {{ticket.updated_at | date: 'dd MMMM yyyy HH:mm'}}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3" *ngIf="ticket.status != 2">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-success" (click)="onReply()">
+                {{'BUTTON.REPLY' | translate}}
+            </button>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="isReply">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <form>
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label>{{'LABEL.MESSAGE' | translate}}</label>
+                                <textarea class="form-control" rows="10" name="message"
+                                          [(ngModel)]="ticket.message"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label>{{'LABEL.ADD_ATTACH_FILE' | translate}}</label>
+                                <div class="controls">
+                                    <input type="file" name="file" class="form-control"
+                                           (change)="fileChangeListener($event)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="button" class="btn btn-info" (click)="sendTicket()">
+                                    {{'BUTTON.SEND' | translate}}
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" *ngFor="let detail of details;">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 border-right-1">
+                        <p>{{detail.username}}</p>
+                        <!--<p>{{(detail.user_type == 0 ? 'LABEL.USER' : 'LABEL.ADMIN') | translate}}</p>-->
+                    </div>
+                    <div class="col-md-9">
+                        <p class="border-bottom-1">
+                            {{'LABEL.POSTED_ON' | translate}}  {{detail.created_at | date: 'dd MMMM yyyy HH:mm'}}
+                        </p>
+                        <pre>{{detail.message}}</pre>
+                        <p *ngIf="detail.attach_name != ''">
+                            <a target="_blank" href="{{detail.attach_url}}">{{detail.attach_name}}</a>
+                        </p>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

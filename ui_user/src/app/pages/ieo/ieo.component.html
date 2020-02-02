@@ -1,0 +1,248 @@
+<div class="page-wrapper">
+    <div class="top-image">
+        <img src="assets/images/ico/top-image.png">
+    </div>
+
+    <div class="sistemkoin-logo">
+        <img src="assets/images/home/logo.png">
+    </div>
+    <div class="title ">
+        <h2 class="text-white">Find Your Favourite Token or Ico</h2>
+        <h1 class="text-white">Buy, Sale, Overview</h1>
+        <h3 class="text-white">Browse, sort, compare with other coins.</h3>
+        <h3 class="text-white">Don't miss opportunities. Instant trading.</h3>
+    </div>
+    <div class="content">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="ieo-pair">
+                    <div class="tabs">
+                        <ul>
+                            <li class="text-center" [ngClass]="{'active': activeMarketCoin=='TL'}" (click)="onSelectMarketCoin('TL')">TL</li>
+                            <li class="text-center" [ngClass]="{'active': activeMarketCoin=='BTC'}" (click)="onSelectMarketCoin('BTC')">BTC</li>
+                            <li class="text-center" [ngClass]="{'active': activeMarketCoin=='ETH'}" (click)="onSelectMarketCoin('ETH')">ETH</li>
+                            <li class="text-center" [ngClass]="{'active': activeMarketCoin=='USD'}" (click)="onSelectMarketCoin('USD')">USD</li>
+                        </ul>
+                        <div class="filters">
+                            <i class="fa fa-search"></i>
+                            <input type="text" name="search" placeholder="{{'LABEL.Search' | translate}}" [(ngModel)]="filtertxt" (ngModelChange)="onFilter()">
+                        </div>
+                    </div>
+                    <div class="table-responsive pair-table">
+                        <table class="table ">
+                            <thead>
+                            <tr>
+                                <th></th>
+
+                                <th (click)="onSortTable('name')">Name
+                                    <i class="fa" [ngClass]="{'fa-caret-up': sortInfo[activeMarketCoin].sortColumn == 'name' && sortInfo[activeMarketCoin].sortOrder == 'asc', 'fa-caret-down': sortInfo[activeMarketCoin].sortColumn == 'name' && sortInfo[activeMarketCoin].sortOrder == 'desc'}"></i>
+                                </th>
+                                <th (click)="onSortTable('coin')">Pair
+                                    <i class="fa" [ngClass]="{'fa-caret-up': sortInfo[activeMarketCoin].sortColumn == 'coin' && sortInfo[activeMarketCoin].sortOrder == 'asc', 'fa-caret-down': sortInfo[activeMarketCoin].sortColumn == 'coin' && sortInfo[activeMarketCoin].sortOrder == 'desc'}"></i>
+                                </th>
+                                <th (click)="onSortTable('end_date')" class="text-right">End date
+                                    <i class="fa" [ngClass]="{'fa-caret-up': sortInfo[activeMarketCoin].sortColumn == 'end_date' && sortInfo[activeMarketCoin].sortOrder == 'asc', 'fa-caret-down': sortInfo[activeMarketCoin].sortColumn == 'end_date' && sortInfo[activeMarketCoin].sortOrder == 'desc'}"></i>
+                                </th>
+                                <th (click)="onSortTable('price')" class="text-right">Price
+                                    <i class="fa" [ngClass]="{'fa-caret-up': sortInfo[activeMarketCoin].sortColumn == 'price' && sortInfo[activeMarketCoin].sortOrder == 'asc', 'fa-caret-down': sortInfo[activeMarketCoin].sortColumn == 'price' && sortInfo[activeMarketCoin].sortOrder == 'desc'}"></i>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let pair of pairs" [ngClass]="{'active': pair.coin == selCoin && pair.market_coin == selMarketCoin}" (click)="onClickPair(pair)">
+                                <td class="text-center"><i class="fa fa-star"></i></td>
+                                <td>{{pair.name}}</td>
+                                <td>{{pair.coin}}/{{pair.market_coin}}</td>
+                                <td class="text-right">{{pair.end_date | date:'dd.MM.yyyy'}}</td>
+                                <td class="text-right">$ {{pair.price | number:'1.2-4'}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="logo" id="video">
+                    <!--<img src="assets/images/ico/{{selCoin}}-banner.png">-->
+                    <!--<iframe src="https://www.youtube.com/embed/nzTryRjWf9U"-->
+                            <!--width="100%" height="100%" frameborder="0" allowfullscreen></iframe>-->
+                </div>
+                <div class="token-detail">
+                    <ul class="nav nav-tabs customtab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#overview" role="tab">
+                                <span>Overview</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#saledetails" role="tab">
+                                <span>Token Sale Details</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#links" role="tab">
+                                <span>Links</span></a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="overview" role="tabpanel">
+                            <div class="row">
+                                <p class="col-md-3">Name:</p>
+                                <p class="col-md-9">{{selPair.name}}</p>
+                            </div>
+                            <div class="row">
+                                <p class="col-md-3">Industry:</p>
+                                <p class="col-md-9">{{selPair.industry}}</p>
+                            </div>
+                            <div class="row">
+                                <p class="col-md-3">Project Details:</p>
+                                <div class="col-md-9" [innerHTML]="selPair.detail"></div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="saledetails" role="tabpanel">
+                            <div class="row">
+                                <p class="col-md-3">Start / End Date:</p>
+                                <p class="col-md-9">{{selPair.start_date | date:'dd.MM.yyyy'}} - {{selPair.end_date | date:'dd.MM.yyyy'}}</p>
+                            </div>
+                            <div class="row">
+                                <p class="col-md-3">Total token supply:</p>
+                                <p class="col-md-9">{{selPair.total_token_supply | number:'1.0-0'}}</p>
+                            </div>
+                            <div class="row">
+                                <p class="col-md-3">Target Cap:</p>
+                                <p class="col-md-9">{{selPair.target_cap}}</p>
+                            </div>
+                            <div class="row">
+                                <p class="col-md-3">Token distribution:</p>
+                                <div class="col-md-9" [innerHTML]="selPair.distribution"></div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="links" role="tabpanel">
+                            <p *ngFor="let link of coinLinks">
+                                <a target="_blank" href="{{link.link_url}}"><i class="fa fa-{{link.icon_name}}" style="width: 20px;"></i>{{link.link_name}}</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="ieo-card text-white">
+                    <div class="start-end-date">
+                        <p class="text-white">Start: {{selPair.start_date | date:'dd.MM.yyyy'}}<br>End: {{selPair.end_date | date:'dd.MM.yyyy'}}</p>
+                    </div>
+                    <h2 class="text-white">IEO CARD</h2>
+                    <h2 class="text-white">{{selCoin}}</h2>
+                    <h3 class="text-white">Total funds raised:</h3>
+                    <div class="progress-container">
+                        <div class="progress-bar-contener">
+                            <div class="progress-inner"></div>
+                        </div>
+                    </div>
+                    <h3 class="text-white">{{ieoSetting.ieo_amount | number:'1.0-0'}} / {{selPair.target_amount | number:'1.0-0'}}</h3>
+                    <div class="bonus-structure">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div>Purchase</div>
+                            </div>
+                            <div class="col-md-3">
+                                <div>Amount</div>
+                            </div>
+                            <div class="col-md-6">
+                                <div>Bonus Tokens</div>
+                            </div>
+                        </div>
+                        <div class="row" *ngFor="let bs of bonus" >
+                            <div class="col-md-3">
+                                <div>${{bs.min_amount}} to</div>
+                            </div>
+                            <div class="col-md-3">
+                                <div *ngIf="bs.max_amount > 0">${{bs.max_amount}}</div>
+                            </div>
+                            <div class="col-md-6">
+                                <div>{{bs.bonus}}% Extra Tokens</div>
+                            </div>
+                        </div>
+                        <div *ngIf="bonus?.length == 0">
+                            <div class="col-md-12">
+                                NO BONUS
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="buy-token text-black">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <form class="form-material" id="buyform">
+                                <div class="row">
+                                    <div class="col-md-4 text-left">
+                                        <label class="font-size12">Price</label>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <input type="number" step=0.01 class="form-control" name="buy_rate" min="0" readonly
+                                               [(ngModel)]="buy.price" >
+                                        <div class="font-size12 input-coin">{{selMarketCoin}}</div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 text-left">
+                                        <label class="font-size12">Amount</label>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <input type="number" step=0.00000001 class="form-control" name="buy_amount" min="0" required
+                                               [(ngModel)]="buy.amount" (ngModelChange)="calcTotal($event)">
+                                        <div class="font-size12 input-coin">{{selCoin}}</div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="text-right font-size14">Total</div>
+                            <div class="text-right font-size12">
+                                {{buy.marketcoin_total | number:'1.8-8'}} {{selMarketCoin}}<br> {{buy.usd_total | number:'1.2-2'}} USD
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-4 font-size14">BALANCE</div>
+                        <div class="col-md-4 font-size12">
+                            {{settings.getBalance(selCoin) | number:'1.8-8'}} {{selCoin}}
+                        </div>
+                        <div class="col-md-4 font-size12">
+                            {{settings.getBalance(selMarketCoin) | number:'1.8-8'}} {{selMarketCoin}}
+                        </div>
+                    </div>
+
+                    <div class="mt-2 text-right">
+                        <button type="button" class="btn btn-success text-uppercase"
+                                (click)="buyToken()">Buy {{selCoin}}
+                        </button>
+                    </div>
+                    <hr>
+                    <div class="trade-history">
+                        <h3 class="font-weight-bold" style="margin-top: 19px;">MY TRADES</h3>
+                        <div class="table-responsive pair-table trade-history-table">
+                            <table class="table ">
+                                <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Price {{selMarketCoin}}</th>
+                                    <!--<th>Filled {{selCoin}}</th>-->
+                                    <th>Total {{selCoin}}</th>
+                                    <th>Value {{selMarketCoin}}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let data of history">
+                                    <td>{{data.datetime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                    <td>{{data.rate}}</td>
+                                    <!--<td>{{data.dest_amount - data.bonus | number:'1.0-0'}}</td>-->
+                                    <td>{{data.dest_amount | number:'1.0-0'}}</td>
+                                    <td>{{data.src_amount| number:'1.8-8'}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

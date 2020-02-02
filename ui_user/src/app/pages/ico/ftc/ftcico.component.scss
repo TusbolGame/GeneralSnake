@@ -1,0 +1,281 @@
+#particles-js {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.page-wrapper {
+  background-color: #0c1e22;
+}
+.page-wrapper {
+  position: relative;
+  padding-top: 0;
+  padding-bottom: 0;
+
+  .logo {
+    position: absolute;
+    top: 40px;
+    left: 60px;
+
+    img {
+      height: 50px;
+    }
+  }
+
+  @media screen and (max-width: 780px) {
+    .logo {
+      top: 10px;
+      left: 10px;
+    }
+  }
+
+  .balance {
+    position: absolute;
+    top: 40px;
+    right: 60px;
+    width: 200px;
+    font-size: 15px;
+
+    .title {
+      border-bottom: 2px solid #425dff;
+    }
+  }
+
+  @media screen and (max-width: 780px) {
+    .balance {
+      display: none;
+    }
+  }
+
+  .cursor-pointer {
+    cursor: pointer;
+  }
+
+  .ico-content {
+    padding-top: 70px;
+    padding-bottom: 100px;
+  }
+  .progress-container {
+    margin: auto;
+    margin-top: 70px;
+    max-width: 1000px;
+
+    .progress-bar-contener {
+      height: 30px;
+      margin: 0 auto;
+      position: relative;
+      top: 50%;
+      border-radius: 20px;
+      overflow: hidden;
+      background-color: white;
+
+      .progress-inner {
+        height: 100%;
+        width: 10%;
+        color: white;
+        text-align: center;
+        line-height: 75px;
+        font-size: 35px;
+        animation-direction: reverse;
+        background: #e5405e;
+        /* Old browsers */
+        background: -moz-linear-gradient(left, #ffdb3a 25%, #3fffa2 50%, #3fffa2 50%, #1a9be0 73%, #ba68ed 100%);
+        /* FF3.6-15 */
+        background: -webkit-linear-gradient(left, #ffdb3a 25%, #3fffa2 50%, #3fffa2 50%, #1a9be0 73%, #ba68ed 100%);
+        /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to right, #ffdb3a 25%, #3fffa2 50%, #3fffa2 50%, #1a9be0 73%, #ba68ed 100%);
+      }
+
+    }
+
+    .phase {
+      .phase2 {
+        font-size: 21px;
+      }
+    }
+
+  }
+
+  .token-phase {
+    margin-top: 70px;
+
+    .content {
+      max-width: 700px;
+      margin: auto;
+
+      .number {
+        font-size: 90px;
+        font-weight: bold;
+        line-height: 90px;
+      }
+
+      .seporator {
+        vertical-align: top;
+        font-size: 80px;
+        font-weight: bold;
+        line-height: 80px;
+        margin: 0px 20px;
+      }
+
+      .type {
+        font-size: 25px;
+      }
+
+      @media screen and (max-width: 992px) {
+        .number {
+          font-size: 75px;
+          font-weight: bold;
+          line-height: 75px;
+        }
+
+        .seporator {
+          font-size: 70px;
+          font-weight: bold;
+          line-height: 70px;
+          margin: 0px 20px;
+        }
+
+        .type {
+          font-size: 24px;
+        }
+      }
+
+      @media screen and (max-width: 780px) {
+        .number {
+          font-size: 70px;
+          font-weight: bold;
+          line-height: 70px;
+        }
+
+        .seporator {
+          font-size: 60px;
+          font-weight: bold;
+          line-height: 60px;
+          margin: 0px 20px;
+        }
+
+        .type {
+          font-size: 23px;
+        }
+      }
+
+      @media screen and (max-width: 540px) {
+        .number {
+          font-size: 35px;
+          font-weight: bold;
+          line-height: 35px;
+        }
+
+        .seporator {
+          font-size: 30px;
+          font-weight: bold;
+          line-height: 30px;
+          margin: 0px 20px;
+        }
+
+        .type {
+          font-size: 22px;
+        }
+      }
+    }
+  }
+
+  .buy-with {
+    margin-top: 70px;
+
+    .content {
+      max-width: 700px;
+      margin: auto;
+
+      .title {
+        font-size: 25px;
+        font-weight: bold;
+        border-bottom: 4px solid #0de0fa;
+      }
+
+      button {
+        border: none;
+        height: 50px;
+        font-size: 20px;
+        border-radius: 15px;
+        cursor: pointer;
+        color: white;
+        font-weight: bold;
+        background: linear-gradient(#5d14fe, #508cf3, #88d8f4);
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+
+  .paid {
+    margin-top: 70px;
+
+    .title {
+      font-size: 25px;
+      font-weight: bold;
+    }
+    .inner {
+      padding: 30px 0px;
+      background-color: #0b074e;
+
+      .content {
+        font-size: 22px;
+        font-weight: 400;
+
+        .first {
+          padding: 0px 30px;
+
+          &:before {
+            width: 3px;
+            height: 73%;
+            content: '';
+            background-color: white;
+            position: absolute;
+            right: 6px;
+            top: 8px;
+          }
+        }
+
+        @media screen and (max-width: 576px) {
+          .first {
+            text-align: left!important;
+            padding: 0px 15px;
+
+            &:before {
+              content: none;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .fuck {
+    margin-top: 20px;
+    .title {
+      font-size: 25px;
+      font-weight: bold;
+      border-bottom: 4px solid white;
+    }
+
+    .content {
+      max-width: 900px;
+      margin: auto;
+
+      .item-wrapper {
+        padding: 20px 40px;
+        display: inline-block;
+        background-color: #0b074e;
+        height: 100%;
+        text-align: left;
+
+        .item {
+          margin-left: 12px;
+        }
+      }
+    }
+  }
+}

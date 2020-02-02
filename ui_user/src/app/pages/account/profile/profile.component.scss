@@ -1,0 +1,35 @@
+.order-table {
+  min-height: 500px;
+  max-height: 500px;
+}
+
+.all-btn {
+  position: absolute;
+  right: 15px;
+  bottom: 0px;
+}
+
+.order-table .table {
+  text-align: right;
+  tbody tr {
+    cursor: pointer;
+    font-size: 15px;
+  }
+}
+.card-body {
+  overflow-x: auto;
+}
+
+.image-preview {
+  margin-top: 20px;
+  width: 200px;
+  height: 200px;
+  border: 1px solid;
+  img {
+    min-width: 100%;
+    min-height: 100%;
+    width: 100%;
+    height: 100%;
+  }
+}
+

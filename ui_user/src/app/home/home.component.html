@@ -1,0 +1,673 @@
+<div class="home">
+    <div class="home-header">
+        <div class="container">
+            <div class="top-header">
+                <div class="logo float-left">
+                    <a href="#"><img src="assets/images/home/logo.png" class="main-logo"></a>
+                </div>
+                <div class="button text-center float-right" [ngClass]="{'active': !register}"
+                     (click)="register = false;">
+                    {{'HOME.SIGN_IN' | translate}}
+                </div>
+                <div class="button text-center float-right" [ngClass]="{'active': register}" (click)="register = true;">
+                    {{'HOME.SIGN_UP' | translate}}
+                </div>
+                <div class="float-right">
+                    <nav class="navbar top-navbar navbar-expand-md navbar-light">
+                        <div class="navbar-collapse">
+                            <ul class="navbar-nav mr-auto mt-md-0">
+                            </ul>
+                            <ul class="navbar-nav my-lg-0">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle waves-effect waves-dark text-white" href=""
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="flag-icon {{currentLang.flagIcon}}"></i>
+                                        <span class="lang">{{currentLang.shortName}}</span>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right scale-up">
+                                        <a class="dropdown-item" *ngFor="let lang of translator.getLanguages()"
+                                           (click)="setLang(lang.code)">
+                                            <i class="flag-icon {{lang.flagIcon}}"></i>
+                                            {{lang.text}}
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+            <div class="row" style="clear: both;">
+                <div class="col-sm-12 col-md-8 title">
+                    <div class="content">
+                        <h1 class="text-white">{{'HOME.TITLE' | translate}}</h1>
+                        <p class="text-white">{{'HOME.SUBTITLE' | translate}}</p>
+                    </div>
+                    <!--<div class="ico-announce cursor-pointer">-->
+                        <!--<a href="#/ieo" target="_blank" ><img src="assets/images/home/ieo-banner.png" ></a>                        -->
+                    <!--</div>-->
+                    <div id="slideshow">
+                        <div>
+                            <a href="#/ieo" target="_blank" ><img src="assets/images/slideimage/XLMG.jpg" ></a>
+                        </div>
+                        <div>
+                            <a href="#/ieo" target="_blank" ><img src="assets/images/slideimage/LAAR.jpg" ></a>
+                        </div>
+                        <div>
+                            <a href="#/ieo" target="_blank" ><img src="assets/images/slideimage/SRX.jpg" ></a>
+                        </div>
+                        <div>
+                            <a href="#/ieo" target="_blank" ><img src="assets/images/slideimage/MOBA.jpg" ></a>
+                        </div>
+                        <div>
+                            <a href="#/ieo" target="_blank" ><img src="assets/images/slideimage/V4U.jpg" ></a>
+                        </div>
+                        <div>
+                            <a href="#/ieo" target="_blank" ><img src="assets/images/slideimage/HELP.png" ></a>
+                        </div>
+                        <div>
+                            <a href="#/ieo" target="_blank" ><img src="assets/images/slideimage/INX.png" ></a>
+                        </div>
+                        <div>
+                            <a href="#/ieo" target="_blank" ><img src="assets/images/slideimage/STK.png" ></a>
+                        </div>
+                    </div>
+                    <!--<div class="ico-announce cursor-pointer">-->
+                        <!--<a href="#/ico/stk" target="_blank" *ngIf="currentLang.code == 'tr'"><img src="assets/images/ico/ico-announce-tr.png" ></a>-->
+                        <!--<a href="#/ico/stk" target="_blank" *ngIf="currentLang.code != 'tr'"><img src="assets/images/ico/ico-announce-en.png" ></a>-->
+                    <!--</div>-->
+                    <!--<div class="market-price">-->
+                        <!--<ul class="currency-prices">-->
+                            <!--<li *ngFor="let price of prices; let i=index;">-->
+                                <!--<b>{{price.coin}}</b>:-->
+                                <!--<span [ngClass]="{'text-success': price.last_price >= before_prices[i].last_price, 'text-danger': price.last_price < before_prices[i].last_price}">{{price.last_price | number:'1.'+price.places+'-'+price.places}}TL </span>-->
+                            <!--</li>-->
+                        <!--</ul>-->
+                    <!--</div>-->
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <div class="sign-form">
+                        <div *ngIf="!register">
+                            <form class="form-horizontal" id="loginform" [formGroup]="login">
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <input type="email" name="email" class="form-control" formControlName="email"
+                                               [(ngModel)]="loginInfo.email"
+                                               placeholder="{{'HOME.EMAIL_ADDRESS' | translate}}">
+                                        <app-field-error-display [displayError]="validate.isFieldValid(login, 'email')"
+                                                                 errorMsg="{{'HOME.EMAIL_VALIDATION' | translate}}">
+                                        </app-field-error-display>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <input type="password"
+                                               name="password"
+                                               class="form-control"
+                                               formControlName="password"
+                                               [(ngModel)]="loginInfo.password"
+                                               placeholder="{{'HOME.PASSWORD' | translate}}">
+                                        <app-field-error-display
+                                                [displayError]="validate.isFieldValid(login, 'password')"
+                                                errorMsg="{{'HOME.PASSWORD_VALIDATION' | translate}}">
+                                        </app-field-error-display>
+                                    </div>
+                                </div>
+
+                                <div class="text-right">
+                                    <span class="text-danger">
+                                        <a (click)="forgot()">{{'HOME.FORGOT_PASSWORD' | translate}}</a>
+                                    </span>
+                                </div>
+
+                                <div class="row m-t-20">
+                                    <div class="btn-signup-wrapper col-md-12">
+                                        <button class="text-white text-uppercase" (click)="onLogin()">
+                                            {{'HOME.SIGN_IN_BUTTON' | translate}}
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="form-group m-b-0">
+                                    <div class="col-sm-12 text-center">
+                                        <div class="text-white">{{'HOME.HAVE_NOT_RECEIVED_MAIL' | translate}}
+                                            <a class="text-info m-l-5" (click)="resend()"><b>
+                                                {{'HOME.RESEND_EMAIL' | translate}}</b></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div *ngIf="register">
+                            <form class="form-horizontal" id="signupform" [formGroup]="signup">
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <input type="text" name="name" class="form-control" formControlName="name"
+                                               [(ngModel)]="signupUser.name" placeholder="{{'HOME.NAME' | translate}}">
+                                        <app-field-error-display [displayError]="validate.isFieldValid(signup, 'name')"
+                                                                 errorMsg="{{'HOME.NAME_VALIDATION' | translate}}">
+                                        </app-field-error-display>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <input type="text" name="surname" class="form-control" formControlName="surname"
+                                               [(ngModel)]="signupUser.surname"
+                                               placeholder="{{'HOME.SURNAME' | translate}}">
+                                        <app-field-error-display
+                                                [displayError]="validate.isFieldValid(signup, 'surname')"
+                                                errorMsg="{{'HOME.SURNAME_VALIDATION' | translate}}">
+                                        </app-field-error-display>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <!--<ngx-intl-tel-input  [(value)]="signupUser.phone"></ngx-intl-tel-input>-->
+                                        <input type="tel" name="phone" id="phone" class="form-control"
+                                               formControlName="phone"
+                                               [(ngModel)]="signupUser.phone"
+                                               placeholder="{{'HOME.PHONE_NUMBER' | translate}}">
+                                        <app-field-error-display [displayError]="validate.isFieldValid(signup, 'phone')"
+                                                                 errorMsg="{{'HOME.PHONE_VALIDATION' | translate}}">
+                                        </app-field-error-display>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <input type="text" name="email" class="form-control" formControlName="email"
+                                               [(ngModel)]="signupUser.email"
+                                               placeholder="{{'HOME.EMAIL_ADDRESS' | translate}}">
+                                        <app-field-error-display [displayError]="validate.isFieldValid(signup, 'email')"
+                                                                 errorMsg="{{'HOME.EMAIL_VALIDATION' | translate}}">
+                                        </app-field-error-display>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <input type="password"
+                                               name="password"
+                                               class="form-control"
+                                               formControlName="password"
+                                               [(ngModel)]="signupUser.password"
+                                               placeholder="{{'HOME.PASSWORD' | translate}}">
+                                        <app-field-error-display
+                                                [displayError]="validate.isFieldValid(signup, 'password')"
+                                                errorMsg="{{'HOME.PASSWORD_VALIDATION' | translate}}">
+                                        </app-field-error-display>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <input type="password"
+                                               class="form-control"
+                                               name="confirmPassword"
+                                               formControlName="confirmPassword"
+                                               placeholder="{{'HOME.RETYPE_PASSWORD' | translate}}">
+                                        <app-field-error-display
+                                                [displayError]="validate.isFieldValid(signup, 'confirmPassword')"
+                                                errorMsg="{{'HOME.RE_PASSWORD_VALIDATION' | translate}}">
+                                        </app-field-error-display>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <input type="text" name="ref_name" class="form-control"
+                                               formControlName="ref_name" readonly
+                                               [(ngModel)]="signupUser.ref_code"
+                                               placeholder="{{'HOME.REFERENCE' | translate}}">
+                                    </div>
+                                </div>
+
+                                <div class="accept-term">
+                                    <input type="checkbox" id="accept-term" name="optionsCheckboxes"
+                                           formControlName="agree"
+                                           [(ngModel)]="signupUser.agree">
+                                    <label class="text-white" for="accept-term">
+                                        {{'HOME.AGREE_TERM' | translate}}
+                                    </label>
+                                </div>
+
+                                <div class="row">
+                                    <div class="btn-signup-wrapper col-md-12">
+                                        <button class="text-white text-uppercase" (click)="onSignup()">
+                                            {{'HOME.SIGN_UP_BUTTON' | translate}}
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="have-account text-center">
+                                    <span class="text-white">
+                                        {{'HOME.HAVE_ACCOUNT_SIGN_IN' | translate}}
+                                    </span>
+                                    <span class="text-danger"><a (click)="register=false;"><b class="text-lowercase">{{'HOME.SIGN_IN' | translate}}</b></a></span>
+                                </div>
+                            </form>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="reference-section">
+        <div class="container">
+            <div class="main-title">
+                <h1 class="text-center">{{'HOME.REFERENCE_PROGRAM' | translate}}</h1>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="ref-bg">
+                        <div class="card">
+                            <img src="assets/images/home/ref-bg1.png">
+                        </div>
+                    </div>
+                    <h3 class="ref-title">{{'HOME.REFER_SECTION1_TITLE' | translate}}</h3>
+                    <h5 class="ref-subtitle">{{'HOME.REFER_SECTION1_SUBTITLE' | translate}}</h5>
+                </div>
+                <div class="col-md-4">
+                    <div class="ref-bg">
+                        <div class="card">
+                            <img src="assets/images/home/ref-bg2.png">
+                        </div>
+                    </div>
+                    <h3 class="ref-title">{{'HOME.REFER_SECTION2_TITLE' | translate}}</h3>
+                    <h5 class="ref-subtitle">{{'HOME.REFER_SECTION2_SUBTITLE' | translate}}</h5>
+
+                </div>
+                <div class="col-md-4">
+                    <div class="ref-bg">
+                        <div class="card">
+                            <img src="assets/images/home/ref-bg3.png">
+                        </div>
+                    </div>
+                    <h3 class="ref-title">{{'HOME.REFER_SECTION3_TITLE' | translate}}</h3>
+                    <h5 class="ref-subtitle">{{'HOME.REFER_SECTION3_SUBTITLE' | translate}}</h5>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<div class="market-table">-->
+        <!--<div class="container">-->
+            <!--<div class="main-title">-->
+                <!--<h1 class="text-center">{{'HOME.CRYPTOCURRENCY_LIVE_PRICE_TABLES' | translate}}</h1>-->
+            <!--</div>-->
+            <!--<div class="table-resonsive">-->
+                <!--<table class="table">-->
+                    <!--<thead>-->
+                    <!--<tr>-->
+                        <!--<th>{{'LABEL.COIN' | translate}}</th>-->
+                        <!--<th><span>{{'LABEL.LAST_PRICE' | translate}}</span></th>-->
+                        <!--<th><span>{{'LABEL.CHANGE_24S' | translate}}</span></th>-->
+                        <!--<th><span>{{'LABEL.HIGHEST_PRICE_24S' | translate}}</span></th>-->
+                        <!--<th><span>{{'LABEL.LOWEST_PRICE_24S' | translate}}</span></th>-->
+                        <!--<th><span>{{'LABEL.VOLUME_24S' | translate}}</span></th>-->
+                    <!--</tr>-->
+                    <!--</thead>-->
+                    <!--<tbody>-->
+                    <!--<tr *ngFor="let price of prices">-->
+                        <!--<td><img src="assets/images/coin/{{price.coin}}.png"></td>-->
+                        <!--<td><span>{{price.last_price | number:'1.'+price.places+'-'+price.places}} TL</span></td>-->
+                        <!--<td>-->
+                        <!--<span [ngClass]="{'text-success': price.change >= 0, 'text-danger': price.change < 0}">-->
+                            <!--{{price.change | number:'1.2-2'}} %-->
+                            <!--<i class="fa" [ngClass]="{'fa-chevron-up': price.change >= 0, 'fa-chevron-down': price.change < 0}"></i></span>-->
+                        <!--</td>-->
+                        <!--<td><span class="text-success">{{price.high | number:'1.'+price.places+'-'+price.places}} TL</span></td>-->
+                        <!--<td><span class="text-danger">{{price.low | number:'1.'+price.places+'-'+price.places}} TL</span></td>-->
+                        <!--<td><span class="text-info">{{price.volume | number:'1.8-8'}} {{price.coin}}</span></td>-->
+                    <!--</tr>-->
+                    <!--</tbody>-->
+                <!--</table>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <div class="steps" >
+        <div class="triangle"></div>
+        <div class="half-circle"></div>
+        <div class="container">
+            <div class="main-title">
+                <h1 class="text-center">{{'HOME.STEPS_TO_GET_STARTED' | translate}}</h1>
+            </div>
+            <div class="steps-section step1">
+                <div class="rounded-circle">
+                    <img src="assets/images/home/step1-icon.png">
+                </div>
+                <div class="rectangle card">
+                    <div>
+                        <img class="user" src="assets/images/home/user.jpg">
+                    </div>
+                    <div>
+                        <img class="logo" src="assets/images/home/logo-icon.png">
+                    </div>
+                    <h5>Kaydınız Başarıyla tamamlanmışır..</h5>
+                    <div class="text-center card-btn">Kazanmaya Başla</div>
+                </div>
+                <h2 class="text-center home-color">{{'HOME.CHOOSE_YOU_WALLET' | translate}}</h2>
+                <p class="content home-color">{{'HOME.CHOOSE_YOU_WALLET_DESCRIPTION' | translate}}</p>
+            </div>
+            <div class="steps-section step2">
+                <div class="rounded-circle">
+                    <img src="assets/images/home/step2-icon.png">
+                </div>
+                <div class="rectangle card">
+                    <div>
+                        <img class="user" src="assets/images/home/step4-icon.png">
+                    </div>
+                    <h3 class="home-color">Cüzdan Bilgileri</h3>
+                    <p class="">Toplam Bakiyeniz</p>
+                    <p class="text-success">12.000 TL</p>
+                    <div>
+                        <img class="logo" src="assets/images/home/logo-icon.png">
+                    </div>
+                    <p class="">Bugünlük Kazanç</p>
+                    <div class="text-center card-btn">Hızlı Al- Sat</div>
+                </div>
+
+                <h2 class="text-center home-color">{{'HOME.GET_COIN_WALLET' | translate}}</h2>
+                <p class="content home-color">{{'HOME.GET_COIN_WALLET_DESCRIPTION' | translate}}</p>
+            </div>
+            <div class="steps-section step3">
+                <div class="rounded-circle">
+                    <img src="assets/images/home/step3-icon.png">
+                </div>
+                <div class="rectangle card">
+                    <h3 class="home-color">Coin Al - Sat</h3>
+                    <div class="m-t-20">
+                        <img src="assets/images/home/logo-icon-white.png">
+                        <img src="assets/images/home/arrow.png">
+                        <img src="assets/images/home/logo-icon.png">
+                    </div>
+                    <h4 class="m-t-20">Transferiniz Başarıyla Gerşekleştirilmiştir</h4>
+                    <div class="m-t-20">
+                        <img class="check-icon" src="assets/images/home/check.png">
+                    </div>
+                    <h6 class="m-t-30" style="text-decoration: underline;">Cüzdan Sayfasına Git</h6>
+                </div>
+
+                <h2 class="text-center home-color">{{'HOME.SEND_RECEIVE_WITH_WALLET' | translate}}</h2>
+                <p class="content home-color">{{'HOME.SEND_RECEIVE_WITH_WALLET_DESCRIPTION' | translate}}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="steps-description">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="rounded-circle"></div>
+                    <div class="card-round">
+                        <img src="assets/images/home/stepd1-icon.png">
+                    </div>
+                    <div class="content">
+                        <p class="font-bold">{{'HOME.BITCOIN_TECHNOLOGY' | translate}}</p>
+                        <p class="description">{{'HOME.BITCOIN_TECHNOLOGY_DESCRIPTION' | translate}}</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="rounded-circle"></div>
+                    <div class="card-round">
+                        <img src="assets/images/home/stepd2-icon.png">
+                    </div>
+                    <div class="content">
+                        <p class="font-bold">{{'HOME.FUTURE_OF_MONEY' | translate}}</p>
+                        <p class="description">{{'HOME.FUTURE_OF_MONEY_DESCRIPTION' | translate}}</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="rounded-circle"></div>
+                    <div class="card-round">
+                        <img src="assets/images/home/stepd3-icon.png">
+                    </div>
+                    <div class="content">
+                        <p class="font-bold">{{'HOME.BITCOIN_MINING' | translate}}</p>
+                        <p class="description">{{'HOME.BITCOIN_MINING_DESCRIPTION' | translate}}</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="rounded-circle"></div>
+                    <div class="card-round">
+                        <img src="assets/images/home/stepd4-icon.png">
+                    </div>
+                    <div class="content">
+                        <p class="font-bold">{{'HOME.DIGITAL_WALLET' | translate}}</p>
+                        <p class="description">{{'HOME.DIGITAL_WALLET_DESCRIPTION' | translate}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="service" >
+        <div class="container">
+            <div class="main-title">
+                <h1 class="text-center">{{'HOME.SERVICES' | translate}}</h1>
+                <p class="text-center">{{'HOME.SERVICES_DESCRIPTION' | translate}}</p>
+            </div>
+            <!--<div class="computer-icon text-center">-->
+                <!--<img src="assets/images/home/computer.png" style="width: 100px;">-->
+            <!--</div>-->
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <div>
+                        <img src="assets/images/home/service1-icon.png" style="width: 50px;">
+                    </div>
+                    <h3>{{'HOME.SAFE_SECURE' | translate}}</h3>
+                    <p>{{'HOME.SAFE_SECURE_DESCRIPTION' | translate}}</p>
+                </div>
+                <div class="col-md-4">
+                    <div>
+                        <img src="assets/images/home/service2-icon.png" style="width: 50px;">
+                    </div>
+                    <h3>{{'HOME.MOBILE_APP' | translate}}</h3>
+                    <p>{{'HOME.MOBILE_APP_DESCRIPTION' | translate}}</p>
+                </div>
+                <div class="col-md-4">
+                    <div>
+                        <img src="assets/images/home/service3-icon.png" style="width: 50px;">
+                    </div>
+                    <h3>{{'HOME.ONLINE_WALLET' | translate}}</h3>
+                    <p>{{'HOME.ONLINE_WALLET_DESCRIPTION' | translate}}</p>
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <div>
+                        <img src="assets/images/home/service4-icon.png" style="width: 50px;">
+                    </div>
+                    <h3>{{'HOME.24H_SUPPORT' | translate}}</h3>
+                    <p>{{'HOME.24H_SUPPORT_DESCRIPTION' | translate}}</p>
+                </div>
+                <div class="col-md-4">
+                    <div>
+                        <img src="assets/images/home/service5-icon.png" style="width: 50px;">
+                    </div>
+                    <h3>{{'HOME.INSTANT_EXCHANGE' | translate}}</h3>
+                    <p>{{'HOME.INSTANT_EXCHANGE_DESCRIPTION' | translate}}</p>
+                </div>
+                <div class="col-md-4">
+                    <div>
+                        <img src="assets/images/home/service6-icon.png" style="width: 50px;">
+                    </div>
+                    <h3>{{'HOME.SEND_COIN' | translate}}</h3>
+                    <p>{{'HOME.SEND_COIN_DESCRIPTION' | translate}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="home-footer">
+        <div class="text-center">
+            <a href="#"><img src="assets/images/home/logo-black.png" style="width: 250px;"></a>
+        </div>
+        <div class="footer-link text-center">
+            <ul>
+                <li><a [routerLink]="['/buycoin']"><i class="fa fa-circle"></i> {{'HOME.HOW_TO_BUY_COIN' | translate}}</a></li>
+                <li><a [routerLink]="['/overview']"><i class="fa fa-circle"></i> {{'HOME.COIN_OVERVIEW' | translate}}</a></li>
+                <li><a [routerLink]="['/sellcoin']"><i class="fa fa-circle"></i> {{'HOME.HOW_TO_SELL_COIN' | translate}}</a></li>
+                <li><a [routerLink]="['/contactus']" ><i class="fa fa-circle"></i> {{'HOME.CONTACT_US' | translate}}</a></li>
+                <li><a target="_blank" href="https://sistemkoin.com/api/market/ticker"><i class="fa fa-circle"></i> {{'HOME.HELPS' | translate}}</a></li>
+                <li><a [routerLink]="['/term']" ><i class="fa fa-circle"></i> {{'HOME.TERMS_CONDITIONS'  | translate}}</a></li>
+                <li><a [routerLink]="['/ucretler']"><i class="fa fa-circle"></i> {{'HOME.COMMISSION'  | translate}}</a></li>
+                <li><a target="_blank" href="https://goo.gl/forms/BANjIh59Kax9UkSp1"><i class="fa fa-circle"></i> {{'HOME.REQUEST_LISTING'  | translate}}</a></li>
+            </ul>
+            <!--<div class="footer-text">-->
+                <!--<h5>{{'HOME.FOOTER_TEXT' | translate}}</h5>-->
+            <!--</div>-->
+        </div>
+    </div>
+</div>
+
+<modal-dialog [(visible)]="showMailModal" [closable]="false">
+    <form class="form-horizontal">
+        <h2 class="text-center">
+            {{'HOME.INPUT_YOUR_EMAIL' | translate}}
+        </h2>
+
+        <input type="text" class="form-control" style="text-align: center; font-size: 20px;" name="confirm_email"
+               [(ngModel)]="confirm_email">
+
+        <div class="text-center" style="margin-top: 20px;">
+            <button type="button" class="btn btn-primary" (click)="submitEmail()">{{'BUTTON.SUBMIT' | translate}}
+            </button>
+            <button type="button" class="btn btn-default" (click)="showMailModal = !showMailModal">{{'BUTTON.CANCEL' |
+                translate}}
+            </button>
+        </div>
+    </form>
+</modal-dialog>
+
+<modal-dialog [(visible)]="showG2FModal" [closable]="false">
+    <form class="form-horizontal">
+        <h2 class="text-center">
+            {{'LABEL.ENTER_G2FCDOE' | translate}}
+        </h2>
+
+        <input type="text" class="form-control" style="text-align: center; font-size: 20px;" name="g2f_code"
+               [(ngModel)]="g2f_code">
+
+        <div class="text-center" style="margin-top: 20px;">
+            <button type="button" class="btn btn-primary" (click)="submitG2fCode()">{{'BUTTON.SUBMIT' | translate}}
+            </button>
+            <button type="button" class="btn btn-default" (click)="showG2FModal = !showG2FModal">{{'BUTTON.CANCEL' | translate}}
+            </button>
+        </div>
+    </form>
+</modal-dialog>
+
+<modal-dialog [(visible)]="showSMSModal" [closable]="false">
+    <form class="form-horizontal">
+        <h2 class="text-center">
+            {{'LABEL.ENTER_SMSCDOE' | translate}}
+        </h2>
+
+        <input type="text" class="form-control" style="text-align: center; font-size: 20px;" name="sms_code"
+               [(ngModel)]="sms_code">
+
+        <div class="text-center" style="margin-top: 20px;">
+            <button type="button" class="btn btn-primary" (click)="submitSMSCode()">{{'BUTTON.SUBMIT' | translate}}
+            </button>
+            <button type="button" class="btn btn-default" (click)="showSMSModal = !showSMSModal">{{'BUTTON.CANCEL' |
+                translate}}
+            </button>
+        </div>
+    </form>
+</modal-dialog>
+
+
+<modal-dialog [(visible)]="showEmailModal" [closable]="false">
+    <form class="form-horizontal">
+        <h2 class="text-center">
+            {{'LABEL.ENTER_EMAILCDOE' | translate}}
+        </h2>
+
+        <input type="text" class="form-control" style="text-align: center; font-size: 20px;" name="email_code"
+               [(ngModel)]="email_code">
+
+        <div class="text-center" style="margin-top: 20px;">
+            <button type="button" class="btn btn-primary" (click)="submitEmailCode()">{{'BUTTON.SUBMIT' | translate}}
+            </button>
+            <button type="button" class="btn btn-default" (click)="showEmailModal = !showEmailModal">{{'BUTTON.CANCEL' |
+                translate}}
+            </button>
+        </div>
+    </form>
+</modal-dialog>
+
+<modal-dialog [(visible)]="showSelectModeModal" [closable]="false">
+    <form class="form-horizontal">
+        <h2 class="text-center">
+            {{'LABEL.SELECT_2FMODE' | translate}}
+        </h2>
+
+        <div class="row m-t-30">
+            <div class="col-md-5 select-mode" [ngClass]="{'select-mode-active': selectedMode == 'g2f'}"
+                 (click)="selectedMode = 'g2f';">
+                <i class="fa fa-mobile-phone"></i> {{'LABEL.G2FMODE' | translate}}
+            </div>
+            <div class="col-md-3 select-mode" [ngClass]="{'select-mode-active': selectedMode == 'sms'}"
+                 (click)="selectedMode = 'sms';">
+                <i class="fa fa-envelope"></i> {{'LABEL.SMSMODE' | translate}}
+            </div>
+            <div class="col-md-4 select-mode" [ngClass]="{'select-mode-active': selectedMode == 'email'}"
+                 (click)="selectedMode = 'email';">
+                <i class="fa fa-envelope"></i> {{'LABEL.EMAILMODE' | translate}}
+            </div>
+        </div>
+
+        <div class="text-center" style="margin-top: 30px;">
+            <button type="button" class="btn btn-primary" (click)="onSelectMode()">{{'BUTTON.SUBMIT' | translate}}
+            </button>
+            <button type="button" class="btn btn-default" (click)="showSelectModeModal = !showSelectModeModal">
+                {{'BUTTON.CANCEL' | translate}}
+            </button>
+        </div>
+    </form>
+</modal-dialog>
+
+<modal-dialog [(visible)]="showG2FEnableModal" [closable]="false">
+    <form class="form-horizontal">
+
+        <div class="row">
+            <div class="col-md-6">
+                <img *ngIf="g2f_security_code != ''" style="width: 200px; height: 200px;"
+                     src="https://chart.googleapis.com/chart?chs=200x200&chld=M|0&cht=qr&chl=otpauth://totp/sistemkoin.com:{{user.email}}?secret={{g2f_security_code}}&issuer=sistemkoin.com"/>
+            </div>
+
+            <div class="col-md-6">
+                <div class="row m-t-20">
+                    <!--<div class="form-group col-md-12">-->
+                        <!--<input type="text" class="form-control" [(ngModel)]="g2f_code" name="g2f_code"-->
+                               <!--placeholder="{{'LABEL.ENTER_G2FCDOE' | translate}}">-->
+                    <!--</div>-->
+                    <div class="col-md-12 m-t-40">
+                        <button type="button" class="btn btn-primary" (click)="enableG2F()">{{'BUTTON.NEXT' | translate}}</button>
+                        <button type="button" class="btn btn-default" (click)="showG2FEnableModal = !showG2FEnableModal">
+                            {{'BUTTON.CANCEL' | translate}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</modal-dialog>
+
+<modal-dialog [(visible)]="showSMSEnableModal" [closable]="false">
+    <form class="form-horizontal">
+
+        <div class="row">
+            <div class="form-group col-md-12">
+                <input type="tel" name="phone" id="sms_phone" class="form-control" [(ngModel)]="phone_number">
+            </div>
+        </div>
+
+        <div class="text-center" style="margin-top: 30px;">
+            <button type="button" class="btn btn-primary" (click)="sendSMS()">{{'BUTTON.SEND' | translate}}</button>
+            <button type="button" class="btn btn-default" (click)="showSMSEnableModal = !showSMSEnableModal">
+                {{'BUTTON.CANCEL' | translate}}
+            </button>
+        </div>
+    </form>
+</modal-dialog>

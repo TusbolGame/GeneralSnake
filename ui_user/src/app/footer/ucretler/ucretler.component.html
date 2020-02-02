@@ -1,0 +1,99 @@
+<div class="home">
+    <div class="home-header">
+        <div class="container">
+            <div class="top-header">
+                <div class="logo float-left">
+                    <a href="#"><img src="assets/images/home/logo.png" class="main-logo"></a>
+                </div>
+                <div class="button text-center float-right" [routerLink]="['/login']">
+                    {{'HOME.SIGN_IN' | translate}}
+                </div>
+                <div class="button text-center float-right" [routerLink]="['/']">
+                    {{'HOME.SIGN_UP' | translate}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="home-bg">
+        <img src="assets/images/footer/bg1.png">
+        <div class="title card text-center">
+            <h1>{{'HOME.COMMISSION'  | translate}}</h1>
+        </div>
+    </div>
+
+    <div class="home-content">
+        <div class="container">
+            <div class="table-resonsive">
+                <table class="table text-center top-table">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <img src="assets/images/home/logo-icon.png" style="width: auto; height: 70px;">
+                            </td>
+                            <td>Para Yatırma<br>(Min Limit)</td>
+                            <td>Para Yatırma<br>(Max Limit)</td>
+                            <td>Para Yatırma<br>(Ücret)</td>
+                            <td>Para Çekme<br>(Min Limit)</td>
+                            <td>Para Çekme<br>(Max Limit)</td>
+                            <td>Para Çekme<br>(Ücret)</td>
+                        </tr>
+                        <tr>
+                            <td>Türk Lirası</td>
+                            <td>100.00 TRY</td>
+                            <td>Limitsiz</td>
+                            <td>0.00 TRY</td>
+                            <td>100.00 TRY</td>
+                            <td>Limitsiz</td>
+                            <td>4.00 TRY</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-resonsive">
+                <table class="table text-center main-table">
+                    <thead>
+                        <tr>
+                            <td>Coin</td>
+                            <td>Transfer<br>(Min. Limit)</td>
+                            <td>Transfer<br>(Max. Limit)</td>
+                            <td>Transfer<br>(Ücret)</td>
+                            <td>Emir Alıcı<br>(Ücret)</td>
+                            <td>Emir Satıcı<br>(Ücret)</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let coin of coins">
+                        <td><img src="assets/images/coin/{{coin.coin}}.png" style="height: 38px; width: auto;"> {{coin.fullname}}</td>
+                        <td>{{coin.min_withdraw | number:'1.0-5'}} {{coin.coin}}</td>
+                        <td>Limitsiz</td>
+                        <td>{{coin.withdraw_fee | number:'1.0-5'}} {{coin.coin}}</td>
+                        <td>{{coin.buy_fee != null && coin.buy_fee > 0 ? (coin.buy_fee | number:'1.0-5') + '%': ''}}</td>
+                        <td>{{coin.sell_fee != null && coin.sell_fee > 0 ? (coin.sell_fee | number:'1.0-5') + '%' : ''}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="home-footer">
+        <div class="text-center">
+            <a href="#"><img src="assets/images/home/logo-black.png" style="width: 250px;"></a>
+        </div>
+        <div class="footer-link text-center">
+            <ul>
+                <li><a [routerLink]="['/buycoin']"><i class="fa fa-circle"></i> {{'HOME.HOW_TO_BUY_COIN' | translate}}</a></li>
+                <li><a [routerLink]="['/overview']"><i class="fa fa-circle"></i> {{'HOME.COIN_OVERVIEW' | translate}}</a></li>
+                <li><a [routerLink]="['/sellcoin']"><i class="fa fa-circle"></i> {{'HOME.HOW_TO_SELL_COIN' | translate}}</a></li>
+                <li><a [routerLink]="['/contactus']" ><i class="fa fa-circle"></i> {{'HOME.CONTACT_US' | translate}}</a></li>
+                <li><a target="_blank" href="https://sistemkoin.com/api/market/ticker"><i class="fa fa-circle"></i> {{'HOME.HELPS' | translate}}</a></li>
+                <li><a [routerLink]="['/term']" ><i class="fa fa-circle"></i> {{'HOME.TERMS_CONDITIONS'  | translate}}</a></li>
+                <li><a [routerLink]="['/ucretler']"><i class="fa fa-circle"></i> {{'HOME.COMMISSION'  | translate}}</a></li>
+                <li><a target="_blank" href="https://goo.gl/forms/BANjIh59Kax9UkSp1"><i class="fa fa-circle"></i> {{'HOME.REQUEST_LISTING'  | translate}}</a></li>
+            </ul>
+            <!--<div class="footer-text">-->
+                <!--<h5>{{'HOME.FOOTER_TEXT' | translate}}</h5>-->
+            <!--</div>-->
+        </div>
+    </div>
+</div>

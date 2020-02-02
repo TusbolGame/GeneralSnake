@@ -1,0 +1,39 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <form class="form-horizontal form-material">
+                    <div class="form-group">
+                        <label class="col-md-12">{{'LABEL.IBAN_CODE' | translate}}</label>
+                        <div class="col-md-12">
+                            <input type="text" [(ngModel)]="profile.iban_code" name="iban_code" class="form-control form-control-line">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12">{{'LABEL.IBAN_CODE_USD' | translate}}</label>
+                        <div class="col-md-12">
+                            <input type="text" [(ngModel)]="profile.iban_code_usd" name="iban_code_usd" class="form-control form-control-line">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12">{{'LABEL.IBAN_CODE_EURO' | translate}}</label>
+                        <div class="col-md-12">
+                            <input type="text" [(ngModel)]="profile.iban_code_euro" name="iban_code_euro" class="form-control form-control-line">
+                        </div>
+                    </div>
+                    <!--<div class="form-group">-->
+                    <!--<label class="col-md-12">Phone No</label>-->
+                    <!--<div class="col-md-12">-->
+                    <!--<input type="text" class="form-control form-control-line">-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <button class="btn btn-success" (click)="saveProfile()">{{'BUTTON.UPDATE' | translate}}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

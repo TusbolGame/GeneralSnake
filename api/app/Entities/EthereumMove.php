@@ -1,0 +1,12 @@
+<?php
+
+namespace App\Entities;
+
+use Illuminate\Database\Eloquent\Model;
+
+class EthereumMove extends Model
+{
+    //
+    protected $table = 'ethereum_move';
+    public $timestamps = false;
+}

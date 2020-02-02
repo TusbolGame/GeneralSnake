@@ -1,0 +1,187 @@
+<div class="row page-titles">
+    <div class="col-sm-2 align-self-center">
+        <h4 class="text-themecolor m-b-0 m-t-0"><b>{{selCoin}}</b>
+        </h4>
+        <h5>{{selPair.fullname}}</h5>
+    </div>
+    <div class="col-sm-8 align-self-center">
+        <div class="d-flex m-t-10">
+            <div class="d-flex m-r-20 m-l-10 hidden-md-down">
+                <div class="chart-text m-r-20">
+                    <h6 class="m-b-0">
+                        <small>{{'LABEL.LAST_PRICE' | translate}}</small>
+                    </h6>
+                    <h5 class="m-t-0 text-megna font-size12">{{selPair.last_price | number:'1.'+selPair.places+'-'+selPair.places}}<i
+                            class="mdi mdi-currency-try"></i></h5>
+                </div>
+                <div class="chart-text m-r-20">
+                    <h6 class="m-b-0">
+                        <small>{{'LABEL.CHANGE_24S' | translate}}</small>
+                    </h6>
+                    <h5 class="m-t-0 font-size12" [ngClass]="{'text-danger': selPair.change < 0, 'text-megna': selPair.change > 0}">{{selPair.change | number:'1.2-2'}}%</h5>
+                </div>
+                <div class="chart-text m-r-20">
+                    <h6 class="m-b-0">
+                        <small>{{'LABEL.HIGHEST_PRICE_24S' | translate}}</small>
+                    </h6>
+                    <h5 class="m-t-0 text-inverse font-size12">{{selPair.high | number:'1.'+selPair.places+'-'+selPair.places}}</h5>
+                </div>
+                <div class="chart-text m-r-20">
+                    <h6 class="m-b-0">
+                        <small>{{'LABEL.LOWEST_PRICE_24S' | translate}}</small>
+                    </h6>
+                    <h5 class="m-t-0 text-inverse font-size12">{{selPair.low | number:'1.'+selPair.places+'-'+selPair.places}}</h5>
+                </div>
+                <div class="chart-text m-r-20">
+                    <h6 class="m-b-0">
+                        <small>{{'LABEL.VOLUME_24S' | translate}}</small>
+                    </h6>
+                    <h5 class="m-t-0 text-inverse font-size12">{{selPair.volume | number:'1.8-8'}}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-2 align-self-center">
+        <div class="d-flex m-t-10 justify-content-end">
+            <div class="d-flex m-r-20 m-l-10 hidden-md-down">
+                <div class="chart-text m-r-20">
+                    <h6 class="m-b-0">
+                        <small>TL / USD</small>
+                    </h6>
+                    <h5 class="m-t-0 text-megna font-size12">{{settings.getUSDRate() | number:'1.2-2'}} <b><i class="fa fa-turkish-lira"></i></b></h5>
+                </div>
+                <div class="chart-text m-r-20">
+                    <h6 class="m-b-0">
+                        <small>TL / EURO</small>
+                    </h6>
+                    <h5 class="m-t-0 text-megna font-size12">{{settings.getEURRate() | number:'1.2-2'}} <b><i class="fa fa-turkish-lira"></i></b></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive pair-table">
+                    <table class="table ">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>{{'LABEL.COIN' | translate}}</th>
+                            <th>{{'LABEL.PRICE' | translate}}</th>
+                            <th class="text-right">{{'LABEL.CHANGE' | translate}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let pair of pairs" [ngClass]="{'active': pair.coin == selCoin}" (click)="onClickPair(pair)">
+                            <td class="text-center"><i class="fa fa-star"></i></td>
+                            <td>{{pair.coin}}</td>
+                            <td>{{pair.last_price | number:'1.'+pair.places+'-'+pair.places}}</td>
+                            <td class="text-right" [ngClass]="{'text-megna': pair.change > 0, 'text-danger': pair.change < 0}">{{pair.change | number:'1.2-2'}}%</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="card">
+            <div class="card-body">
+                <form class="form-material">
+                    <div class="form-group">
+                        <label>{{'LABEL.AMOUNT' | translate}}</label>
+                        <input type="number" step=0.001 class="form-control" name="to_amount"
+                               [(ngModel)]="fastbuy.amount">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <label>{{'LABEL.BALANCE' | translate}}</label>
+                        </div>
+                        <div class="col-md-4">
+                            <label>{{settings.getBalance('TL') | number:'1.2-2'}}
+                                <i class="fa fa-turkish-lira"></i></label>
+                            <button type="button" class="btn btn-info btn-sm" (click)="fastbuyAll()">
+                                {{'BUTTON.ALL' | translate}}
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <label>{{'LABEL.RATE' | translate}}</label>
+                        </div>
+                        <div class="col-md-4">
+                            <label>{{fastbuy.rate | number:'1.'+selPair.places+'-'+selPair.places}} <i class="fa fa-turkish-lira"></i></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <label>{{'FASTBUY.AMOUNT_WANT_BUY' | translate}}</label>
+                        </div>
+                        <div class="col-md-4">
+                            <label>{{fastbuy.amount | number:'1.8-8'}} {{selCoin}}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <label>{{'FASTBUY.TL_AMOUNT' | translate}}</label>
+                        </div>
+                        <div class="col-md-4">
+                            <label>{{(fastbuy.amount * fastbuy.rate) | number:'1.'+selPair.places+'-'+selPair.places}}
+                                <i class="fa fa-turkish-lira"></i></label>
+                        </div>
+                    </div>
+                    <div class="mt-4 mb-4">
+                        <button type="button" class="btn btn-info w-100" (click)="submitFastBuy()">
+                            {{selCoin}} {{'LABEL.BUY' | translate}}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">{{'FASTBUY.FASTBUY_HISTORY' | translate}}</h4>
+
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th style="width: 200px;">{{'LABEL.TIME' | translate}}</th>
+                                    <th>{{'LABEL.AMOUNT' | translate}}</th>
+                                    <th>{{'LABEL.RATE' | translate}}</th>
+                                    <th>{{'LABEL.TOTAL_PRICE' | translate}}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let order of fastbuyOrders">
+                                    <td style="width: 200px;">{{order.created_at | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                    <td>{{order.dest_amount | number:'1.8-8'}}</td>
+                                    <td>{{order.rate | number:'1.2-2'}}</td>
+                                    <td>{{order.src_amount | number:'1.8-8'}}</td>
+                                </tr>
+                                <tr *ngIf="fastbuyOrders?.length == 0">
+                                    <td class="text-center" colspan="4">
+                                        {{'FASTBUY.NO_FASTBUY_ORDER' | translate}}
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

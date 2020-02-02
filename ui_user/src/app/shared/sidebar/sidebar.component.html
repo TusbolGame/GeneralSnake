@@ -1,0 +1,35 @@
+<aside class="left-sidebar">
+    <div class="scroll-sidebar">
+        <nav class="sidebar-nav">
+            <ul id="sidebarnav">
+
+                <li routerLinkActive="active" *ngFor="let menuitem of menuItems">
+                    <!--If is a open link-->
+                    <a href="{{menuitem.path}}" target="_blank" *ngIf="menuitem.type === 'open'" (click)="onClickUrl()" style="color: red !important;">
+                        <i class="mdi {{menuitem.icon_class}}" style="color: red !important;"></i>{{menuitem.title | translate}}
+                    </a>
+                    <!--If is a single link-->
+                    <a [routerLink]="[menuitem.path]" *ngIf="menuitem.type === 'link'" (click)="onClickUrl()">
+                        <i class="mdi {{menuitem.icon_class}}"></i>{{menuitem.title | translate}}
+                    </a>
+                    <!--If it have a submenu-->
+
+                    <a class="has-arrow" [routerLink]="[menuitem.path]" (click)="onClickUrl()" aria-expanded="false" *ngIf="menuitem.type === 'sub'">
+                        <i class="mdi {{menuitem.icon_class}}"></i><span class="hide-menu">{{menuitem.title | translate}} </span>
+                    </a>
+
+                    <!--Display the submenu items-->
+                    <ul aria-expanded="false" *ngIf="menuitem.type === 'sub'">
+                        <li routerLinkActive="active" *ngFor="let childitem of menuitem.children">
+                            <a [routerLink]="[childitem.path]" (click)="onClickUrl()">
+                                {{childitem.title | translate}}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <!-- End Sidebar navigation -->
+    </div>
+    <!-- End Sidebar scroll-->
+</aside>

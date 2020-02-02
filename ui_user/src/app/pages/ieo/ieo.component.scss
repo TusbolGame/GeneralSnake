@@ -1,0 +1,208 @@
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.nav-tabs .nav-link.active {
+  background-color: inherit;
+}
+.page-wrapper {
+  background: white;
+  position: relative;
+  padding-top: 0px;
+  padding-bottom: 0px;
+
+  .sistemkoin-logo {
+    position: absolute;
+    top: 20px;
+    left: 30px;
+  }
+  .top-image {
+    width: 100%;
+
+    img {
+      width: 100%;
+      min-height: 300px;
+    }
+  }
+  .title {
+    position: absolute;
+    top: 100px;
+    left: 100px;
+  }
+}
+
+table {
+  td:first-child, th:first-child {
+    padding-left: 5px;
+  }
+  td:last-child, th:last-child {
+    padding-right: 5px;
+  }
+}
+
+.content {
+  padding: 20px;
+  color: black !important;
+  .ieo-pair {
+    .tabs {
+      border-bottom: 2px solid #009efb;
+      position: relative;
+      ul {
+        padding: 5px 0 0 0px;
+        height: 30px;
+        margin: 0;
+        li {
+          cursor: pointer;
+          font-size: 13px;
+          list-style: none;
+          display: inline-block;
+          line-height: 25px;
+          width: 40px;
+          background-color: #b1b1b1;
+          color: black;
+          margin-bottom: 5px;
+
+          &.active {
+            color: white;
+            // background: rgba(0, 158, 251, 0.16);
+            background-color: #009efb;
+          }
+        }
+      }
+      .filters {
+        position: absolute;
+        right: 0;
+        top: 5px;
+        i {
+          position: absolute;
+          right: 80px;
+          line-height: 25px;
+          color: black;
+        }
+        input[type='text'] {
+          width: 100px;
+          height: 25px;
+          font-size: 14px;
+          padding-left: 20px;
+        }
+      }
+    }
+
+    .pair-table {
+      min-height: 700px;
+      border: 1px solid #efefef;
+      table {
+        td:first-child, th:first-child {
+          padding-left: 0;
+        }
+        tr:nth-child(2n) {
+          background-color: #fafafa;
+        }
+        th:nth-child(4), td:nth-child(4) {
+          padding-right: 10px;
+        }
+        tr:hover {
+          background-color: #e6e6e6;
+        }
+      }
+    }
+  }
+  .logo {
+    width: 100%;
+    height: 300px;
+  }
+  .token-detail {
+    .tab-pane {
+      -ms-word-wrap: break-word;
+      word-wrap: break-word;
+      padding-top: 20px;
+    }
+    #links {
+      i {
+        width: 20px;
+      }
+    }
+  }
+  .ieo-card {
+    position: relative;
+    padding: 20px;
+    background: #41b9db;
+    min-height: 250px;
+    border-top-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+    .start-end-date {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+    }
+  }
+  .buy-token {
+    margin-top: 30px;
+    background: #f2f2f2;
+    padding: 20px;
+
+    .form-group {
+      margin-bottom: 10px;
+      .form-control {
+        color: #495057;
+        min-height: initial;
+      }
+      .form-control[readonly] {
+        opacity: 1;
+      }
+      input {
+        font-size: 14px;
+      }
+    }
+    .trade-history-table {
+      max-height: 200px;
+      min-height: 200px;
+    }
+  }
+}
+
+.progress-container {
+  margin: auto;
+  max-width: 1000px;
+
+  .progress-bar-contener {
+    height: 15px;
+    margin: 0 auto;
+    position: relative;
+    top: 50%;
+    border-radius: 20px;
+    overflow: hidden;
+    background-color: white;
+
+    .progress-inner {
+      height: 100%;
+      width: 10%;
+      color: white;
+      text-align: center;
+      line-height: 75px;
+      font-size: 35px;
+      animation-direction: reverse;
+      background: #e5405e;
+      /* Old browsers */
+      background: -moz-linear-gradient(left, black 100%, black 50%, black 50%, black 73%, black 100%);
+      /* FF3.6-15 */
+      background: -webkit-linear-gradient(left, black 100%, black 50%, black 50%, black 73%, black 100%);
+      /* Chrome10-25,Safari5.1-6 */
+      background: linear-gradient(to right, black 100%, black 50%, black 50%, black 73%, black 100%);
+    }
+  }
+}
+
+.input-coin {
+  position: absolute;
+  right: 15px;
+  bottom: 2px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}

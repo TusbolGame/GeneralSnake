@@ -1,0 +1,92 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "project": {
+    "name": "admin-angular"
+  },
+  "apps": [
+    {
+      "root": "src",
+      "outDir": "dist",
+      "assets": [
+        "assets",
+        "favicon.ico"
+      ],
+      "index": "index.html",
+      "main": "main.ts",
+      "polyfills": "polyfills.ts",
+      "test": "test.ts",
+      "tsconfig": "tsconfig.app.json",
+      "testTsconfig": "tsconfig.spec.json",
+      "prefix": "app",
+      "styles": [
+        "styles.css",
+        "../node_modules/bootstrap/dist/css/bootstrap.min.css",
+        "../node_modules/cryptocoins-icons/webfont/cryptocoins.css",
+        "../node_modules/cryptocoins-icons/webfont/cryptocoins-colors.css",
+        "../node_modules/intl-tel-input/build/css/intlTelInput.css",
+        "../src/assets/css/style.css",
+        "../src/assets/css/colors/blue.css",
+        "../src/assets/plugins/toast-master/css/jquery.toast.css",
+        "../src/assets/plugins/sweetalert/sweetalert.css",
+        "../src/assets/plugins/select2/dist/css/select2.min.css"
+      ],
+      "scripts": [
+        "../node_modules/jquery/dist/jquery.min.js",
+        "../node_modules/popper.js/dist/umd/popper.min.js",
+        "../node_modules/bootstrap/dist/js/bootstrap.min.js",
+        "../node_modules/jquery-slimscroll/jquery.slimscroll.min.js",
+        "../node_modules/pace-js/pace.min.js",
+        "../node_modules/intl-tel-input/build/js/intlTelInput.min.js",
+        "../src/assets/plugins/toast-master/js/jquery.toast.js",
+        "../src/assets/plugins/sweetalert/sweetalert.min.js",
+        "../src/assets/plugins/sweetalert/jquery.sweet-alert.custom.js",
+        "../src/assets/plugins/bchaddrjs/bchaddrjs-0.1.4.min.js",
+        "../node_modules/pusher-js/dist/web/pusher.min.js",
+        "../src/assets/plugins/datatables/jquery.dataTables.min.js",
+        "../src/assets/plugins/Magnific-Popup-master/dist/jquery.magnific-popup.min.js",
+        "../src/assets/plugins/Magnific-Popup-master/dist/jquery.magnific-popup-init.js",
+        "../src/assets/plugins/ripple/ripple-1.2.5-min.js",
+        "../src/assets/plugins/datatables/dataTables.buttons.min.js",
+        "../src/assets/plugins/datatables/buttons.flash.min.js",
+        "../src/assets/plugins/datatables/jszip.min.js",
+        "../src/assets/plugins/datatables/buttons.html5.min.js",
+        "../src/assets/plugins/datatables/buttons.print.min.js",
+        "../src/assets/plugins/particles/particles.min.js",
+        "../src/assets/plugins/select2/dist/js/select2.full.min.js"
+      ],
+      "environmentSource": "environments/environment.ts",
+      "environments": {
+        "dev": "environments/environment.ts",
+        "prod": "environments/environment.prod.ts"
+      }
+    }
+  ],
+  "e2e": {
+    "protractor": {
+      "config": "./protractor.conf.js"
+    }
+  },
+  "lint": [
+    {
+      "project": "src/tsconfig.app.json",
+      "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "src/tsconfig.spec.json",
+      "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "e2e/tsconfig.e2e.json",
+      "exclude": "**/node_modules/**"
+    }
+  ],
+  "test": {
+    "karma": {
+      "config": "./karma.conf.js"
+    }
+  },
+  "defaults": {
+    "styleExt": "css",
+    "component": {}
+  }
+}

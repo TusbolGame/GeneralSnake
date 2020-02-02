@@ -1,0 +1,61 @@
+/* You can add global styles to this file, and also import other style files */
+.font-size18 {
+    font-size: 18px !important;
+}
+.font-size16 {
+    font-size: 16px !important;
+}
+.font-size15 {
+    font-size: 15px !important;
+}
+.font-size14 {
+    font-size: 14px !important;
+}
+.font-size13 {
+    font-size: 13px !important;
+}
+.font-size12 {
+    font-size: 12px !important;
+}
+
+table tbody tr {
+    font-size: 12px;
+}
+
+
+.pair-table table {
+    margin-bottom: 0;
+}
+.pair-table table thead tr {
+    background-color: #efefef;
+}
+.pair-table table tr {
+    cursor: pointer;
+    height: 23px;
+    line-height: 23px;
+}
+.pair-table table tr.active {
+     font-weight: bold;
+     background-color: rgba(0, 158, 251, 0.5) !important;
+}
+.pair-table table tr:hover {
+     font-weight: bold;
+ }
+
+.pair-table table th, .pair-table table td {
+    padding: 0;
+    border: 0;
+    font-size: 12px;
+}
+
+.pair-table table tr:nth-child(2n) {
+    background-color: #fafafa;
+}
+.pair-table table th:nth-child(4), .pair-table table td:nth-child(4) {
+    padding-right: 10px;
+}
+.pair-table table tr:hover {
+    background-color: #e6e6e6;
+}
+
+

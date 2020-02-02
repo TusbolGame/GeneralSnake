@@ -1,0 +1,166 @@
+.market {
+  table {
+    td:first-child, th:first-child {
+      padding-left: 5px;
+    }
+    td:last-child, th:last-child {
+      padding-right: 5px;
+    }
+  }
+}
+
+.coin-pair {
+  // border: 1px solid #efefef;
+  .tabs {
+    border-bottom: 2px solid #009efb;
+    ul {
+      padding: 5px 0 0 0px;
+      height: 60px;
+      margin: 0;
+      li {
+        cursor: pointer;
+        font-size: 13px;
+        list-style: none;
+        display: inline-block;
+        line-height: 25px;
+        width: 40px;
+        background-color: #b1b1b1;
+        color: black;
+        margin-bottom: 5px;
+
+        &.active {
+          color: white;
+          // background: rgba(0, 158, 251, 0.16);
+          background-color: #009efb;
+        }
+      }
+    }
+  }
+
+  .pair-table {
+    max-height: 260px;
+    min-height: 260px;
+    border: 1px solid #efefef;
+    table {
+      td:first-child, th:first-child {
+        padding-left: 0;
+      }
+      tr:nth-child(2n) {
+        background-color: #fafafa;
+      }
+      th:nth-child(4), td:nth-child(4) {
+        padding-right: 10px;
+      }
+      tr:hover {
+        background-color: #e6e6e6;
+      }
+    }
+  }
+  .trade-table {
+    max-height: 270px;
+    min-height: 270px;
+    border: 1px solid #efefef;
+  }
+}
+
+.open-order {
+  .sell-order-list, .buy-order-list {
+    max-height: 300px;
+    min-height: 300px;
+    border: 1px solid #efefef;
+  }
+}
+
+.ct-chart {
+  min-height: 370px;
+}
+
+.make-order {
+  margin-top: 10px;
+  .title {
+    margin-top: 10px;
+    h5 {
+      line-height: 30px;
+    }
+  }
+  .form-group {
+    margin-bottom: 10px;
+    .form-control {
+      color: #495057;
+      min-height: initial;
+    }
+    .form-control[readonly] {
+      opacity: 1;
+    }
+    input {
+      font-size: 12px;
+    }
+  }
+  .all-btn {
+    position: absolute;
+    right: 15px;
+    bottom: 0px;
+  }
+  > .col-md-6 {
+    background-color: #f7f7f7;
+    border: 1px solid #e6e6e6;
+  }
+}
+
+.percentage-button {
+  float: left !important;
+  width: 25%;
+  padding: 0 2px;
+  button {
+    font-size: 12px !important;
+    padding: 0;
+  }
+}
+
+.input-coin {
+  position: absolute;
+  right: 15px;
+  bottom: 2px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+.filters {
+  position: relative;
+  padding-top: 5px;
+  padding-left: 10px;
+  padding-bottom: 5px;
+  border: 1px solid #efefef;
+
+  i {
+    position: absolute;
+    left: 15px;
+    line-height: 25px;
+    color: black;
+  }
+  input[type='text'] {
+    width: 100px;
+    height: 25px;
+    font-size: 14px;
+    padding-left: 20px;
+  }
+
+  [type="radio"]:checked + label:after,
+  [type="radio"].with-gap:checked + label:before,
+  [type="radio"].with-gap:checked + label:after {
+    border: 1px solid #009efb;
+  }
+
+  [type="radio"]:checked + label:after,
+  [type="radio"].with-gap:checked + label:after {
+    background-color: #009efb;
+    z-index: 0;
+  }
+
+}

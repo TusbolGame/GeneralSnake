@@ -1,0 +1,31 @@
+tr {
+  td {
+    line-height: 20px;
+  }
+}
+a {
+  cursor: pointer;
+  &:hover {
+    color: #1e88e5 !important;
+  }
+}
+
+.filters {
+  position: relative;
+  padding-top: 5px;
+  padding-bottom: 5px;
+
+  i {
+    position: absolute;
+    left: 5px;
+    line-height: 25px;
+    color: black;
+  }
+
+  input[type='text'] {
+    width: 200px;
+    height: 30px;
+    font-size: 14px;
+    padding-left: 20px;
+  }
+}

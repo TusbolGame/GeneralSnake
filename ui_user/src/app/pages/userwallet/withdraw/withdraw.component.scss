@@ -1,0 +1,30 @@
+
+.qrCode {
+  width: 240px;
+}
+.wallet-address {
+  position: relative;;
+
+  button {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+}
+
+.border-right-1 {
+  border-right: 1px solid;
+}
+
+.card-height {
+  min-height: 700px;
+  max-height: 700px;
+  overflow-x: auto;
+}
+
+a {
+  cursor: pointer;
+  &:hover {
+    color: #1e88e5 !important;
+  }
+}

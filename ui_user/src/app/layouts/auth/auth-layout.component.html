@@ -1,0 +1,46 @@
+
+<div id="main-wrapper">
+  <ap-navigation></ap-navigation>
+
+  <ap-sidebar></ap-sidebar>
+
+  <div class="page-wrapper">
+
+    <div class="container-fluid">
+
+      <!--<breadcrumb></breadcrumb>-->
+      <div class="row m-t-20" *ngIf="settings.getUserSetting('account_verified') != 1">
+        <div class="col-md-12">
+          <div class="alert alert-danger">
+            {{'MSG.UNVERIFIED_NOTIFY' | translate}} <a href="#" [routerLink]="['/account/profile']">{{'MSG.UNVERIFIED_LINK' | translate}}</a>
+          </div>
+        </div>
+      </div>
+
+      <router-outlet></router-outlet>
+
+      <ap-rightsidebar></ap-rightsidebar>
+
+    </div>
+
+    <div class="footer home-footer">
+      <div class="footer-link text-center">
+        <ul>
+          <li><a target="_blank" href="/#/buycoin"><i class="fa fa-circle"></i> {{'HOME.HOW_TO_BUY_COIN' | translate}}</a></li>
+          <li><a target="_blank" href="/#/overview"><i class="fa fa-circle"></i> {{'HOME.COIN_OVERVIEW' | translate}}</a></li>
+          <li><a target="_blank" href="/#/sellcoin"><i class="fa fa-circle"></i> {{'HOME.HOW_TO_SELL_COIN' | translate}}</a></li>
+          <li><a target="_blank" href="/#/contactus" ><i class="fa fa-circle"></i> {{'HOME.CONTACT_US' | translate}}</a></li>
+          <li><a target="_blank" href="https://sistemkoin.com/api/market/ticker"><i class="fa fa-circle"></i> {{'HOME.HELPS' | translate}}</a></li>
+          <li><a target="_blank" href="/#/term" ><i class="fa fa-circle"></i> {{'HOME.TERMS_CONDITIONS'  | translate}}</a></li>
+          <li><a target="_blank" href="/#/ucretler"><i class="fa fa-circle"></i> {{'HOME.COMMISSION'  | translate}}</a></li>
+          <li><a target="_blank" href="https://goo.gl/forms/BANjIh59Kax9UkSp1"><i class="fa fa-circle"></i> {{'HOME.REQUEST_LISTING'  | translate}}</a></li>
+        </ul>
+        <!--<div class="footer-text">-->
+          <!--<h5>{{'HOME.FOOTER_TEXT' | translate}}</h5>-->
+        <!--</div>-->
+      </div>
+    </div>
+
+  </div>
+
+</div>
